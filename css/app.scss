@@ -1,0 +1,210 @@
+// Let's start things off right with normalize.css
+@import '_normalize.scss';
+
+// Import the animate library for our animations
+// TODO: Make sure to trim this file down before production.
+@import '_animate.scss';
+
+// Variables
+$grey-dark: #333333;
+$grey: #595959;
+$grey-light: #bbbbbb;
+$purple: rebeccapurple;
+
+// Global styling
+html, body {
+	height: 100%;
+}
+
+body {
+	background-size: cover;
+	background-attachment: fixed;
+	box-sizing: border-box;
+	font-size: 24px;
+	line-height: 150%;
+	margin: 0;
+	padding: 30px;
+	text-align: center;
+}
+
+h1, h2, h3 {
+	font-weight: 400;
+}
+
+// In order to vertically center our containers,
+// we can add a ghost element to create the alignment context.
+body:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	margin-right: -1.25em;
+	vertical-align: middle;
+}
+
+.accent {
+	border-top: 5px solid rebeccapurple;
+}
+
+.halfway {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.clickable {
+	cursor: pointer;
+
+	&:hover {
+		color: $grey;
+	}
+}
+
+.grey {
+	color: $grey-light;
+}
+
+button {
+	border: 1px solid #000;
+	border-radius: 3px;
+	padding: 0 15px;
+	font-size: 18px;
+
+	&:focus {
+		outline: none;
+	}
+
+	&.transparent {
+		background: transparent;
+	}
+
+	&.ghost {
+		background: none;
+		border: none;
+		text-decoration: underline;
+	}
+}
+
+
+// The various font permutations. We will be adding one of these to the body class.
+h2 {
+	cursor: pointer;
+	font-size: 24px;
+	line-height: 150%;
+	transition: all 0.5s linear;
+}
+
+.playfair {
+	font-family: 'Playfair Display', serif;
+	font-size: 20px;
+}
+
+// .raleway {
+// 	font-family: 'Raleway', serif;
+// }
+
+.code {
+	font-family: 'VT323', sans-serif;
+}
+
+.josefin {
+	font-family: 'Voltaire', serif;
+}
+
+.amatic {
+	font-family: 'Amatic SC', serif;
+}
+
+.hidden {
+	display: none;
+	opacity: 0.7;
+}
+
+.selected {
+	color: $grey-dark;
+}
+
+
+// Background image classes
+.bulbs {
+	background-image: url('../images/bulbs.png');
+	background-position: right top;
+	color: #f5f5f5;
+}
+
+.constellation {
+	background-image: url('../images/constellation.png');
+}
+
+.mac {
+	background-image: url('../images/mac.png');
+}
+
+.mars {
+	background-image: url('../images/mars.png');
+	background-position: center center;
+}
+
+.mountains {
+	background-image: url('../images/mountains.png');
+	background-position: right bottom;
+}
+
+.satellites {
+	background-image: url('../images/satellites.png');
+}
+
+.underwater {
+	background-image: url('../images/underwater.png');
+	color: #f5f5f5;
+}
+
+.unicorn {
+	background-image: url('../images/unicorn.png');
+	background-position: right bottom;
+}
+
+.wild {
+	background-image: url('../images/wild.png');
+	background-position: center center;
+}
+
+
+// Article styling to make this look like a magazine.
+.article {
+	max-width: 675px;
+	padding: 100px 0;
+	text-align: justify;
+	width: 80%;
+
+	em {
+		cursor: pointer;
+		font-style: normal;
+		opacity: 1.0;
+		text-decoration: underline;
+		transition: all 0.5s ease-out;
+	}
+
+	.exhausted {
+		cursor: default;
+		font-style: italic;
+		text-decoration: none;
+	}
+
+	&.three:first-letter {
+		font-size: 64px;
+	}
+}
+
+.footer-menu {
+	background: #f5f5f5;
+	border-top: 1px solid $grey-dark;
+	bottom: 0;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	right: 0;
+
+	small {
+		display: block;
+		font-size: 12px;
+	}
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+                   _______  _______  _______           _
+|\     /||\     /|/ ___   )/ ___   )(  ___  )|\     /|( )
+| )   ( || )   ( |\/   )  |\/   )  || (   ) || )   ( || |
+| (___) || |   | |    /   )    /   )| (___) || (___) || |
+|  ___  || |   | |   /   /    /   / |  ___  ||  ___  || |
+| (   ) || |   | |  /   /    /   /  | (   ) || (   ) |(_)
+| )   ( || (___) | /   (_/\ /   (_/\| )   ( || )   ( | _
+|/     \|(_______)(_______/(_______/|/     \||/     \|(_)
+
+You've found the source code! You probably thought, "Oh I'm not going to click on all of these things, I'll just read everything in view source". Well, I certainly can't stop you from doing that, but I will say, if you haven't yet, I would encourage you to go through the experience of having the story unfold.
+
+Hint:
+Control + ~ will pull up a menu with various functions you can have fun with.
+-->
+
+<head>
+	<title>Portfolio</title>
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+
+	<!-- All the fonts! -->
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
+	<!-- <link href='https://fonts.googleapis.com/css?family=Raleway:400,400italic' rel='stylesheet' type='text/css'> -->
+	<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+
+	<link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic' rel='stylesheet' type='text/css'>
+
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+
+
+	<link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+	<!-- I know, I know. There are quite a few fonts here, but you're going to love it. -->
+</head>
+<body data-bind="css: bodyClasses">
+	<section class="halfway">
+		<h1 class="clickable amatic hidden" data-bind="click: changeView">Lance Turri</h1>
+	</section>
+
+	<section class="halfway grey hidden">
+		<h2 class="clickable playfair" data-bind="click: changeFont.bind($data, 'playfair')">Hello, my name is Lance Turri and I am a UI developer.</h2>
+		<h2 class="clickable code" data-bind="click: changeFont.bind($data, 'code')">Hello, my name is Lance Turri and I am a UI developer.</h2>
+		<h2 class="clickable josefin" data-bind="click: changeFont.bind($data, 'josefin')">Hello, my name is Lance Turri and I am a UI developer.</h2>
+		<h2 class="clickable amatic" data-bind="click: changeFont.bind($data, 'amatic')">Hello, my name is Lance Turri and I am a UI developer.</h2>
+		<button class="transparent" data-bind="click: changeView, enable: fontChosen">Continue</button>
+	</section>
+
+	<section class="halfway article hidden" data-bind="css: whichFont">
+		Hello, my name is <em class="underline" data-bind="click: revealText.bind($data, '1', '')">Lance
+		<span class="hidden" data-segment="1">Steven</span>
+		Turri</em> and I am <em data-bind="click: revealText.bind($data, '2', '')">a</em>
+		<span class="hidden" data-segment="2">super hero</span>
+		<em data-bind="click: revealText.bind($data, '3', '')">UI developer</em>
+
+		<span class="hidden" data-segment="3">and scrum master. Some of my interests include
+			<em data-bind="click: revealText.bind($data, '4', '')">reading</em>
+				<span class="hidden" data-segment="4">(I'm a philosophy major)</span>, watching rugby, and writing <em data-bind="click: revealText.bind($data, '5', '')">scalable css</em>.
+
+
+					<span class="hidden" data-segment="5">
+						I love having a design in front of me and finding the best, most efficient way of making it ccome to
+						<em data-bind="click: revealText.bind($data, '6', '')">life</em>
+						<span class="hidden" data-segment="6"> because at heart I am a
+							<em data-bind="click: revealText.bind($data, '7', '')">puzzle</em> solver.
+							<span class="hidden" data-segment="7"> Ever since I was a kid I wanted to solve everything. Taking a remote apart, the month I spent when I first got a rubiks cube, the myriad of gameboy games that had a strong puzzle component</span>
+						</span>.
+						That is what I love most about front end work; I can bring my imagination and my desire to create something together. Front end development is like a constant puzzle that changes daily and I love solving it, this is certainly my <em data-bind="click: revealText.bind($data, '8', '')">passion</em>.
+					</span>
+
+					<span class="hidden" data-segment="8">Whew! I'm surprised you're still reading! Okay what do you want to know?
+
+					<em data-bind="click: revealText.bind($data, '9', '')">Your CSS</em>
+					<span class="hidden" data-segment="9">Alright! Let's talk about CSS. I LOVE writing <em data-bind="click: revealText.bind($data, '10', '')">CSS</em>.
+
+					<section class="hidden" data-segment="10">
+						<p>My HTML and CSS writing philosophy (if you can call it that) is very simple, write as <em data-bind="click: revealText.bind($data, '11', '')">little as possible</em>.</span> <span class="hidden" data-segment="11">Of course I subscribe to the DRY principle and the idea of OOCSS, but how my code actually turns out is always dependant on the project and what its <em data-bind="click: revealText.bind($data, '12', '')">needs</em> are.</span> <span class="hidden" data-segment="12">The problem comes in that scalable CSS takes different forms depending on what you are trying to do and what scales for the <em data-bind="click: revealText.bind($data, '13', '')">company</em> and product you are a part of.</span> <span class="hidden" data-segment="13">For instance, writing CSS when you are the only front end <i>guy</i> is quite different than having a team of <em data-bind="click: revealText.bind($data, '14', '')">font loving</em><span class="hidden" data-segment="14"> (My favorite is Avenir)</span>, pixel perfect counterparts.</span></p>
+
+						<p class="hidden" data-segment="10">At the end of the day, I want to write as clear and <em data-bind="click: revealText.bind($data, '15', '')">concise</em> of front end code as possible. <span class="hidden" data-segment="15">Someone reading what I've worked on should never have to ask me how it works, or why I <em data-bind="click: revealText.bind($data, '16', '')">did it that way</em><span class="hidden" data-segment="16"> (that's what comments are for!)</span>.</span></p>
+
+						<a href="#">How about some Pens?</a>
+					</section>
+
+					<em data-bind="click: revealText.bind($data, '17', '')">Your Favorite movies</em>
+
+					<section class="hidden" data-segment="17">
+						Well, I'm not entirely sure why you are so interested, but since you clicked, here are my top three.
+
+						<ul>
+							<li>Pulp Fiction</li>
+							<li>The Princess Bride</li>
+							<li>Howl's Moving Castle</li>
+						</ul>
+					</section>
+
+					<em data-bind="click: revealText.bind($data, '18', '')">Some books that I would recommend</em>
+
+					<section class="hidden" data-segment="18">
+						I am certainly more of a Sci-Fi and Fantasy fan but there are a few in here that would appeal to other genres.
+
+						<ul>
+							<li>Mistborn trilogy</li>
+							<li>Mellenium trilogy (The girl with the dragon tattoo)</li>
+							<li>Moon is a harsh mistress</li>
+							<li>Serena</li>
+						</ul>
+					</section>
+
+					<em data-bind="click: revealText.bind($data, '19', '')">Your most complex problem</em>
+
+					<section>
+						<p class="hidden" data-segment="19">This is going to sound like a bit of a copout... but the most complex problem I've faced is writing <em data-bind="click: revealText.bind($data, '20', '')">scalable CSS</em>. <span class="hidden" data-segment="20">My definition of this is creating a structure that is both welcoming for developers and able to scale <em data-bind="click: revealText.bind($data, '21', '')">gracefully</em> with new modules, widgets, features, and designs.</span> <span class="hidden" data-segment="21">And therein lies the challenge, to create something that is brilliantly concise and can <em data-bind="click: revealText.bind($data, '22', '')">grow at a whim</em> into any number of things.</span> <span class="hidden" data-segment="22">The way that I do that is by thinking about the <em data-bind="click: revealText.bind($data, '23', '')">individual parts</em> instead of the whole when I am writing code.</span></p>
+
+						<p class="hidden" data-segment="23">As a kid I used to build with Lego's every night. I would stay up till <em data-bind="click: revealText.bind($data, '24', '')">three in the morning</em><span class="hidden" data-segment="24"> (back when cartoon network went to static after Space Ghost)</span>, building everything I possibly could. When I would do this, I never thought I need a spaceship, I would say I need a 2 x 4 that is red to <em data-bind="click: revealText.bind($data, '25', '')">build this section</em>. <span class="hidden" data-segment="25">That's what CSS should do, building reusable, dynamic, agnostic blocks that can be combined to build <em data-bind="click: revealText.bind($data, '26', '')">anything</em>.</span> <span class="hidden" data-segment="26">And when you just have to have that trapdoor so that the evil wizard can be <em data-bind="click: revealText.bind($data, '27', '')">defeated</em>, you can create a new class.</span></p>
+
+						<p class="hidden" data-segment="27">You made it! Congratulations! I honestly didn't think anyone would read all of this, but you have proved me wrong.</p>
+					</section>
+
+				</span>
+			</span>
+		</span>.
+	</section>
+
+	<footer class="footer-menu code hidden">
+		<button class="ghost" data-bind="click: cycleBackgrounds">Cycle Backgrounds</button>
+		<button class="ghost" data-bind="click: randomFont">Randomize Font</button>
+		<button class="ghost" data-bind="click: unicornJs">Unicorn.js</button>
+		<button class="ghost" data-bind="click: popOfColor">Pop of Color</button>
+		<small>(CRTL + ~) opens this menu</small>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
