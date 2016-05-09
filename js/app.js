@@ -31,6 +31,8 @@ var portfolioViewModel = function() {
 	self.fontChosen = ko.observable(false);
 	self.whichFont = ko.observable();
 	self.backgroundImage = ko.observable('');
+	self.isThereThePopOfColor = ko.observable(false);
+	self.areThereUnicorns = false;
 
 	self.fonts = [
 		'playfair',
@@ -55,30 +57,39 @@ var portfolioViewModel = function() {
 		var $parentCache = $(event.currentTarget).parent('section');
 		var $chainElement = $parentCache.next('section');
 		$parentCache.animateCss('fadeOut', $chainElement, 'fadeInUp');
-	}
+	};
 
 	self.revealText = function(numberString, itemToReveal, data, event) {
 		// Functionality to reveal next segment of text
+		var $sectionToReveal = $('[data-segment="' + numberString + '"]');
 		$(event.currentTarget).addClass('exhausted');
-		$('[data-segment="' + numberString + '"]').removeClass('hidden');
+		$sectionToReveal.removeClass('hidden');
+
+		setTimeout(function() {
+			$sectionToReveal.addClass('revealed');
+		}, 500);
+
 		self.revealCounter(self.revealCounter() + 1);
 
 		// If there is also an item to reveal (like a unicorn) go ahead
 		if(itemToReveal) {
 			$('.' + itemToReveal).removeClass('hidden');
 		}
-	}
+	};
 
 	self.revealCounter.subscribe(function(value) {
 		switch(value) {
 			case 3:
 				$('.article').addClass('three');
+				$('.trophy').filter(':not(".polished")').first().addClass('polished');
 				break;
 			case 5:
 				$('.article').addClass('five');
+				$('.trophy').filter(':not(".polished")').first().addClass('polished');
 				break;
 			case 10:
 				$('.article').addClass('ten');
+				$('.trophy').filter(':not(".polished")').first().addClass('polished');
 				break;
 		}
 	});
@@ -89,29 +100,42 @@ var portfolioViewModel = function() {
 
 	self.changeFont = function(font, data, event) {
 		self.whichFont(font);
-		self.fontChosen(true);
 		$('.selected').removeClass('selected');
 		$(event.currentTarget).addClass('selected');
+
+		if (self.fontChosen()) {
+			toastr.success('Font ' + self.whichFont() + ' has been set.');
+		}
+
+		self.fontChosen(true);
 	};
 
 	self.cycleBackgrounds = function() {
 		var imageNumber = self.backgroundCollection.indexOf(self.backgroundImage());
 		self.backgroundImage(self.backgroundCollection[imageNumber + 1]);
-	}
-	self.isThereThePopOfColor = ko.observable(false);
+		toastr.success('Background image ' + self.backgroundImage() + ' has been set.');
+	};
+
 	self.unicornJs = function() {
-		// Initiate Unicorn.js here.
-		return true;
-	}
+		if(!self.areThereUnicorns) {
+			Expecto.patronum('.article', {
+		        'duration': '1.0',
+		        'bowFlow':'ltr',
+		        'cursor':'pointer'
+		    });
+		    self.areThereUnicorns = true;
+		    toastr.success('Unicorn.js enabled. Hover over some text to enjoy!');
+		}
+	};
 
 	self.popOfColor = function() {
 		self.isThereThePopOfColor(true);
-	}
+	};
 
 	self.bodyClasses = ko.pureComputed(function() {
 		var accent = self.isThereThePopOfColor() ? 'accent ' : '';
 		return  accent + self.backgroundImage();
-	})
+	});
 
 	// DEBUG - Testing for the behavior of the pureComputed
 	self.bodyClasses.subscribe(function () {
@@ -119,10 +143,10 @@ var portfolioViewModel = function() {
 	}, this, "awake");
 
 	self.bodyClasses.subscribe(function () {
-	    console.log("I\m asleep!")
+	    console.log("I\m asleep!");
 	}, this, "asleep");
 
-}
+};
 
 ko.bindingHandlers.fadeVisible = {
     init: function(element, valueAccessor) {
@@ -133,22 +157,23 @@ ko.bindingHandlers.fadeVisible = {
     update: function(element, valueAccessor) {
         // Whenever the value subsequently changes, slowly fade the element in or out
         var value = valueAccessor();
-        ko.unwrap(value) ? $(element).animateCss('fadeIn') : $(element).animateCss('fadeOut');
+        var valueUnwrapped = ko.unwrap(value);
+        valueUnwrapped ? $(element).animateCss('fadeIn') : $(element).animateCss('fadeOut');
     }
 };
 
-ko.applyBindings(new portfolioViewModel);
+ko.applyBindings(new portfolioViewModel());
 
 $(function() {
 	$('body').on('keydown', function(event) {
 		if(event.ctrlKey && event.keyCode === 192) {
 			$('.footer-menu').slideToggle();
 		}
-	})
+	});
 
 	// The initial animation function.
 	setTimeout(function() {
-		console.log('Initialization complete. Please enjoy your stay.')
+		console.log('Initialization complete. Please enjoy your stay.');
 		$('h1').animateCss('fadeIn');
 	}, 2000);
 
@@ -163,3 +188,4 @@ $(function() {
 
 //TODO: Add in tostr for developer notifications.
 // TODO: Investigate loading libraries on click or lazy loading certain JS files.
+// Help voice command that will open a modal with various commands
