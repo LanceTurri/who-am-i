@@ -1,0 +1,52 @@
+// Article styling to make this look like a magazine.
+// =============================================================================
+.article {
+    max-width: 675px;
+    padding: 100px 0;
+    text-align: justify;
+    width: 80%;
+
+    em {
+        cursor: pointer;
+        font-style: normal;
+        opacity: 1;
+        text-decoration: underline;
+    }
+
+    .exhausted {
+        cursor: default;
+        font-style: italic;
+        text-decoration: none;
+    }
+
+    .highlight {
+        background: lighten(#663399, 30%);
+        opacity: 0.8;
+        transition: background 0.4s linear, color 0.4s linear, opacity 0.2s linear;
+
+        &.revealed {
+            background: transparent;
+            opacity: 1;
+        }
+    }
+
+    &.three::first-letter {
+        font-size: 64px;
+    }
+}
+
+.footer-menu {
+    background: #f5f5f5;
+    border-top: 1px solid $grey-dark;
+    bottom: 0;
+    color: $grey-dark;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    small {
+        display: block;
+        font-size: 12px;
+    }
+}

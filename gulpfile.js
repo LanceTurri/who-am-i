@@ -1,58 +1,64 @@
-'use strict';
+// Dependencies
+// =============================================================================
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
+const browsersync = require('browser-sync').create();
 
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var debug = require('gulp-debug')
-var sass = require('gulp-sass');
-var notify = require('gulp-notify');
-var imagemin = require('gulp-imagemin');
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
-var ext_replace = require('gulp-ext-replace');
-var pngquant = require('imagemin-pngquant');
-var sourcemaps = require('gulp-sourcemaps');
 
-var isDebugEnabled = true;
+// Configuration
+// =============================================================================
+const tsConfig = $.typescript.createProject('tsconfig.json');
+const paths = {
+    "html": "./index.html",
+    "scss": "src/styles/**/*.scss",
+    "ts": "src/scripts/**/*.ts",
+    "output": "dist",
+};
 
-gulp.task('scss', function () {
-  return gulp.src('scss/*.scss')
-    .pipe(sass())
-    .pipe(gulpif(isDebugEnabled, debug({ title: 'CSS |' })))
-    .on("error", notify.onError(function (error) {
-        return "File: " + error.message;
-      }))
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest('scss'))
-    .pipe(notify("SCSS task finished"));
+
+// Build tasks
+// =============================================================================
+gulp.task('build:scss', () => {
+    return gulp.src(paths.scss, { base: 'src' })
+        .pipe($.sourcemaps.init())
+        .pipe($.sass())
+        .on('error', $.notify.onError((error) => `File: ${error.message}`))
+        .pipe($.autoprefixer())
+        .pipe($.csso())
+        .pipe($.rename({ extname: '.min.css'}))
+        .pipe($.sourcemaps.write('./'))
+        .pipe($.debug({ title: 'CSS |' }))
+        .pipe(gulp.dest(paths.output))
+        .pipe(browsersync.stream())
+        .pipe($.notify('SCSS task finished'));
+    });
+    
+    gulp.task('build:ts', () => {
+        return gulp.src(paths.ts, { base: 'src' })
+        .pipe($.debug({ title: 'JS  |' }))
+        .pipe(tsConfig())
+        .pipe($.sourcemaps.init())
+        .pipe($.uglify())
+        .pipe($.rename({ extname: '.min.js'}))
+        .pipe($.sourcemaps.write('./'))
+        .pipe(gulp.dest(paths.output))
+        .pipe(browsersync.stream())
+        .pipe($.notify('TS task finished'));
+    });
+
+gulp.task('serve', ['build:scss', 'build:ts'], () => {
+    browsersync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    gulp.watch(paths.scss, ['build:scss']);
+    gulp.watch(paths.ts, ['build:ts']);
+    gulp.watch(paths.html).on('change', browsersync.reload);
 });
 
-gulp.task('js', function() {
-  return gulp.src(['js/*.js', '!js/*.min.js', '!js/vendor/*'])
-    .pipe(gulpif(isDebugEnabled, debug({ title: 'JS |' })))
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(ext_replace('.min.js'))
-    .pipe(sourcemaps.write('js'))
-    .pipe(gulp.dest('js'))
-    .pipe(notify("JS task finished"));
-    ;
-})
 
-gulp.task('images', function() {
-    return gulp.src('images/art/*')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-        }))
-        .pipe(gulp.dest('images'));
-});
-
-gulp.task('watch', function () {
-  gulp.watch('scss/*.scss', ['scss']);
-  gulp.watch('js/*.js', ['js']);
-});
-
-gulp.task('default', ['watch']);
+// Default
+// =============================================================================
+gulp.task('default', ['serve']);
