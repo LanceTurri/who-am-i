@@ -1,8 +1,13 @@
 // Article styling to make this look like a magazine.
 // =============================================================================
 .article {
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 auto;
     max-width: 675px;
-    padding: 100px 0;
+    overflow: auto;
     text-align: justify;
     width: 80%;
 
@@ -32,21 +37,5 @@
 
     &.three::first-letter {
         font-size: 64px;
-    }
-}
-
-.footer-menu {
-    background: #f5f5f5;
-    border-top: 1px solid $grey-dark;
-    bottom: 0;
-    color: $grey-dark;
-    position: fixed;
-    width: 100%;
-    left: 0;
-    right: 0;
-
-    small {
-        display: block;
-        font-size: 12px;
     }
 }

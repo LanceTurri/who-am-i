@@ -20,131 +20,205 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 
 <head>
 	<title>Lance Turri's Portfolio</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="stylesheet" type="text/css" href="dist/styles/app.min.css">
-
-	<!-- All the fonts! -->
+	
+	<!-- Font imports -->
+	<!-- I know, I know. There are quite a few fonts here, but you're going to love it. -->
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
-	<!-- <link href='https://fonts.googleapis.com/css?family=Raleway:400,400italic' rel='stylesheet' type='text/css'> -->
 	<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
-
+	
 	<link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic' rel='stylesheet' type='text/css'>
-
+	
 	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
-
+	
 	<link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
-	<!-- I know, I know. There are quite a few fonts here, but you're going to love it. -->
+	<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 
-<body :class="backgroundImage">
-	<nav class="trophy-case">
-		<a href="https://github.com/LanceTurri" target="_blank" class="trophy polished icon-github" data-tooltip="Github"></a>
-		<a href="https://www.linkedin.com/in/lance-turri-37b39030" class="trophy icon-linkedin2" target="_blank" data-tooltip="LinkedIn"></a>
-		<span class="trophy icon-photo_camera" data-tooltip="Codepens"></span>
-		<span class="trophy icon-images" data-bind="click: cycleBackgrounds" data-tooltip="Cycle through backgrounds"></span>
-		<span class="trophy icon-announcement" data-bind="click: unicornJs" data-tooltip="Enable Unicorn.js"></span>
-		<span class="trophy icon-adb" data-tooltip="Voice commands anyone?"></span>
-		<span class="trophy icon-highlight" data-bind="click: randomFont" data-tooltip="Toggle the various fonts"></span>
-		<span class="trophy icon-whatshot" data-tooltip="Something else (maybe about modal?)"></span>
-	</nav>
+<body>
+	<main id="vue-app" class="main-wrapper" :class="backgroundImage">
+		<nav-section @chooserandomfont="chooseRandomFont" @cyclebackgrounds="cycleBackgrounds"></nav-section>
+		<name-page @changeview="changeView"></name-page>
+		<font-selection-page @changeview="changeView" @changefont="changeFont" :selected-font="selectedFont"></font-selection-page>
+		<storybook-page @changeview="changeView" @incrementcounter="incrementCounter" :selected-font="selectedFont"></storybook-page>
+		<footer-section></footer-section>
+	</main>
 
-	<section class="halfway">
-		<h1 class="pointed amatic hidden" data-bind="click: changeView">Lance Turri</h1>
-	</section>
 
-	<section class="halfway hidden">
-		<h2 class="clickable playfair" data-bind="click: changeFont.bind($data, 'playfair')">Hello, my name is Lance Turri and I am a UI developer.</h2>
-		<h2 class="clickable code" data-bind="click: changeFont.bind($data, 'code')">Hello, my name is Lance Turri and I am a UI developer.</h2>
-		<h2 class="clickable josefin" data-bind="click: changeFont.bind($data, 'josefin')">Hello, my name is Lance Turri and I am a UI developer.</h2>
-		<h2 class="clickable amatic" data-bind="click: changeFont.bind($data, 'amatic')">Hello, my name is Lance Turri and I am a UI developer.</h2>
+	<!-- Vue.js string templates -->
+	<script type="text/x-template" id="name_page_template">
+		<section class="page-wrapper" id="name">
+			<h1 class="pointed amatic" @click="changeView">Lance Turri</h1>
+		</section>
+	</script>
 
-		<button class="continue icon-keyboard_arrow_down animated bounce infinite" data-bind="click: changeView, visible: fontChosen"></button>
-	</section>
+	<script type="text/x-template" id="font_selection_page_template">
+		<section class="page-wrapper font-selection flex--col hidden" id="font_selection">
+			<p class="font-selection__intro">Choose a font</p>
+			<h2 class="font-selection__item playfair" @click="changeFont('playfair')" :class="[selectedFont === 'playfair' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item code" @click="changeFont('code')" :class="[selectedFont === 'code' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item josefin" @click="changeFont('josefin')" :class="[selectedFont === 'josefin' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item amatic" @click="changeFont('amatic')" :class="[selectedFont === 'amatic' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
+	
+			<button class="button--ghost" @click="changeView">Continue</button>
+		</section>
+	</script>
 
-	<section class="halfway article hidden" data-bind="css: whichFont">
-		Hello, my name is <em class="underline" data-bind="click: revealText.bind($data, '1', '')">Lance
-		<span class="hidden highlight" data-segment="1">Steven</span>
-		Turri</em> and I am <em data-bind="click: revealText.bind($data, '2', '')">a</em>
-		<span class="hidden highlight" data-segment="2">super hero</span>
-		<em data-bind="click: revealText.bind($data, '3', '')">front end developer</em>
-
-		<span class="hidden highlight" data-segment="3">and scrum master. Some of my interests include
-			<em data-bind="click: revealText.bind($data, '4', '')">reading</em><span class="hidden highlight" data-segment="4"> (I'm a philosophy major)</span>, watching rugby, and writing<em data-bind="click: revealText.bind($data, '5', '')"> scalable css</em>.
-
-					<span class="hidden highlight" data-segment="5">
-						I love having a design in front of me and finding the best, most efficient way of making it come to
-						<em data-bind="click: revealText.bind($data, '6', '')">life</em>
-						<span class="hidden highlight" data-segment="6"> because at heart I am a
-							<em data-bind="click: revealText.bind($data, '7', '')">puzzle</em> solver.
-							<span class="hidden highlight" data-segment="7"> Ever since I was a kid I wanted to solve everything. Taking a remote apart, the month I spent when I first got a rubiks cube, the myriad of gameboy games that had a strong puzzle component.</span>
+	<script type="text/x-template" id="storybook_page_template">
+		<section class="page-wrapper article hidden" id="storybook" :class="selectedFont">
+			Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
+			<span class="hidden highlight" data-segment="1">Steven</span>
+			Turri</em> and I am <em @click="revealText('2', $event)">a</em>
+			<span class="hidden highlight" data-segment="2">super hero</span>
+			<em @click="revealText('3', $event)">front end developer</em>
+	
+			<span class="hidden highlight" data-segment="3">and scrum master. Some of my interests include
+				<em @click="revealText('4', $event)">reading</em><span class="hidden highlight" data-segment="4"> (I'm a philosophy major)</span>, watching rugby, and writing<em @click="revealText('5', $event)"> scalable css</em>.
+	
+						<span class="hidden highlight" data-segment="5">
+							I love having a design in front of me and finding the best, most efficient way of making it come to
+							<em @click="revealText('6', $event)">life</em>
+							<span class="hidden highlight" data-segment="6"> because at heart I am a
+								<em @click="revealText('7', $event)">puzzle</em> solver.
+								<span class="hidden highlight" data-segment="7"> Ever since I was a kid I wanted to solve everything. Taking a remote apart, the month I spent when I first got a rubiks cube, the myriad of gameboy games that had a strong puzzle component.</span>
+							</span>
+							That is what I love most about front end work; I can bring my imagination and my desire to create something together. Front end development is like a constant puzzle that changes daily and I love solving it, this is certainly my <em @click="revealText('8', $event)">passion</em>.
 						</span>
-						That is what I love most about front end work; I can bring my imagination and my desire to create something together. Front end development is like a constant puzzle that changes daily and I love solving it, this is certainly my <em data-bind="click: revealText.bind($data, '8', '')">passion</em>.
+	
+						<span class="hidden highlight" data-segment="8">Whew! I'm surprised you're still reading! Okay what do you want to know?</span>
+	
+					<div>
+						<em @click="revealText('9', $event)">Your CSS</em>
+						<div class="hidden highlight" data-segment="9">Alright! Let's talk about CSS. I LOVE writing <em @click="revealText('10', $event)">CSS</em>.
+							<p class="hidden highlight" data-segment="10">
+								My HTML and CSS writing philosophy (if you can call it that) is very simple, write as 
+								<em @click="revealText('11', $event)">little as possible</em>.
+								
+								<span class="hidden highlight" data-segment="11">
+									Of course I subscribe to the DRY principle and the idea of OOCSS, but how my code actually turns out is always dependant on the project and what its 
+									<em @click="revealText('12', $event)">needs</em> are.
+								</span> 
+								<span class="hidden highlight" data-segment="12">
+									The problem comes in that scalable CSS takes different forms depending on what you are trying to do and what scales for the 
+									<em @click="revealText('13', $event)">company</em> 
+									and product you are a part of.
+								</span> 
+								<span class="hidden highlight" data-segment="13">
+									For instance, writing CSS when you are the only front end <i>guy</i> is quite different than having a team of 
+									<em @click="revealText('14', $event)">font loving</em>
+									<span class="hidden highlight" data-segment="14"> (My favorite is Avenir)</span>, pixel perfect counterparts.
+								</span>
+							</p>
+
+							<p class="hidden highlight" data-segment="10">
+								At the end of the day, I want to write as clear and 
+								<em @click="revealText('15', $event)">concise</em> 
+								of front end code as possible. 
+								<span class="hidden highlight" data-segment="15">
+									Someone reading what I've worked on should never have to ask me how it works, or why I 
+									<em @click="revealText('16', $event)">did it that way</em>
+									<span class="hidden highlight" data-segment="16"> (that's what comments are for!)</span>.
+								</span>
+							</p>
+							<a href="#">How about some Pens?</a>
+						</div>
+	
+						<em @click="revealText('17', $event)">Your Favorite movies</em>
+	
+						<div class="hidden highlight" data-segment="17">
+							Well, I'm not entirely sure why you are so interested, but since you clicked, here are my top three.
+	
+							<ul>
+								<li>Pulp Fiction</li>
+								<li>The Princess Bride</li>
+								<li>Howl's Moving Castle</li>
+							</ul>
+						</div>
+	
+						<em @click="revealText('18', $event)">Some books that I would recommend</em>
+	
+						<div class="hidden highlight" data-segment="18">
+							I am certainly more of a Sci-Fi and Fantasy fan but there are a few in here that would appeal to other genres.
+	
+							<ul>
+								<li>The Expanse (On book 5 of 9)</li>
+								<li>Mistborn trilogy</li>
+								<li>Millennium trilogy (The girl with the dragon tattoo)</li>
+								<li>Moon is a harsh mistress</li>
+								<li>Serena</li>
+							</ul>
+						</div>
+	
+						<em @click="revealText('19', $event)">Your most complex problem</em>
+	
+						<div>
+							<p class="hidden highlight" data-segment="19">
+								This is going to sound like a bit of a copout... but the most complex problem I've faced is writing 
+								<em @click="revealText('20', $event)">scalable CSS</em>. 
+								<span class="hidden highlight" data-segment="20">
+									My definition of this is creating a structure that is both welcoming for developers and able to scale 
+									<em @click="revealText('21', $event)">gracefully</em> 
+									with new modules, widgets, features, and designs.
+								</span> 
+								<span class="hidden highlight" data-segment="21">
+									And therein lies the challenge, to create something that is brilliantly concise and can 
+									<em @click="revealText('22', $event)">grow at a whim</em> 
+									into any number of things.
+								</span> 
+								<span class="hidden highlight" data-segment="22">
+									The way that I do that is by thinking about the 
+									<em @click="revealText('23', $event)">individual parts</em> 
+									instead of the whole when I am writing code.
+								</span>
+							</p>
+	
+							<p class="hidden highlight" data-segment="23">
+								As a kid I used to build with Lego's every night. I would stay up till 
+								<em @click="revealText('24', $event)">three in the morning</em>
+								<span class="hidden highlight" data-segment="24">
+									(back when cartoon network went to static after Space Ghost)
+								</span>, building everything I possibly could. When I would do this, I never thought I need a spaceship, I would say I need a 2 x 4 that is red to 
+								<em @click="revealText('25', $event)">build this section</em>. 
+								<span class="hidden highlight" data-segment="25">
+									That's what CSS should do, building reusable, dynamic, agnostic blocks that can be combined to build 
+									<em @click="revealText('26', $event)">anything</em>.
+								</span> 
+								<span class="hidden highlight" data-segment="26">
+									And when you just have to have that trapdoor so that the evil wizard can be 
+									<em @click="revealText('27', $event)">defeated</em>, you can create a new class.
+								</span>
+							</p>
+	
+							<p class="hidden highlight" data-segment="27">You made it! Congratulations! I honestly didn't think anyone would read all of this, but you have proved me wrong.</p>
+						</div>
+					</div>
 					</span>
-
-					<span class="hidden highlight" data-segment="8">Whew! I'm surprised you're still reading! Okay what do you want to know?
-
-				<div>
-					<em data-bind="click: revealText.bind($data, '9', '')">Your CSS</em>
-					<section class="hidden highlight" data-segment="9">Alright! Let's talk about CSS. I LOVE writing <em data-bind="click: revealText.bind($data, '10', '')">CSS</em>.
-
-						<p class="hidden highlight" data-segment="10">My HTML and CSS writing philosophy (if you can call it that) is very simple, write as <em data-bind="click: revealText.bind($data, '11', '')">little as possible</em>.</span> <span class="hidden highlight" data-segment="11">Of course I subscribe to the DRY principle and the idea of OOCSS, but how my code actually turns out is always dependant on the project and what its <em data-bind="click: revealText.bind($data, '12', '')">needs</em> are.</span> <span class="hidden highlight" data-segment="12">The problem comes in that scalable CSS takes different forms depending on what you are trying to do and what scales for the <em data-bind="click: revealText.bind($data, '13', '')">company</em> and product you are a part of.</span> <span class="hidden highlight" data-segment="13">For instance, writing CSS when you are the only front end <i>guy</i> is quite different than having a team of <em data-bind="click: revealText.bind($data, '14', '')">font loving</em><span class="hidden highlight" data-segment="14"> (My favorite is Avenir)</span>, pixel perfect counterparts.</span></p>
-
-						<p class="hidden highlight" data-segment="10">At the end of the day, I want to write as clear and <em data-bind="click: revealText.bind($data, '15', '')">concise</em> of front end code as possible. <span class="hidden highlight" data-segment="15">Someone reading what I've worked on should never have to ask me how it works, or why I <em data-bind="click: revealText.bind($data, '16', '')">did it that way</em><span class="hidden highlight" data-segment="16"> (that's what comments are for!)</span>.</span></p>
-
-						<a href="#">How about some Pens?</a>
-					</section>
-
-					<em data-bind="click: revealText.bind($data, '17', '')">Your Favorite movies</em>
-
-					<section class="hidden highlight" data-segment="17">
-						Well, I'm not entirely sure why you are so interested, but since you clicked, here are my top three.
-
-						<ul>
-							<li>Pulp Fiction</li>
-							<li>The Princess Bride</li>
-							<li>Howl's Moving Castle</li>
-						</ul>
-					</section>
-
-					<em data-bind="click: revealText.bind($data, '18', '')">Some books that I would recommend</em>
-
-					<section class="hidden highlight" data-segment="18">
-						I am certainly more of a Sci-Fi and Fantasy fan but there are a few in here that would appeal to other genres.
-
-						<ul>
-							<li>The Expanse (On book 5 of 9)</li>
-							<li>Mistborn trilogy</li>
-							<li>Millennium trilogy (The girl with the dragon tattoo)</li>
-							<li>Moon is a harsh mistress</li>
-							<li>Serena</li>
-						</ul>
-					</section>
-
-					<em data-bind="click: revealText.bind($data, '19', '')">Your most complex problem</em>
-
-					<section>
-						<p class="hidden highlight" data-segment="19">This is going to sound like a bit of a copout... but the most complex problem I've faced is writing <em data-bind="click: revealText.bind($data, '20', '')">scalable CSS</em>. <span class="hidden highlight" data-segment="20">My definition of this is creating a structure that is both welcoming for developers and able to scale <em data-bind="click: revealText.bind($data, '21', '')">gracefully</em> with new modules, widgets, features, and designs.</span> <span class="hidden highlight" data-segment="21">And therein lies the challenge, to create something that is brilliantly concise and can <em data-bind="click: revealText.bind($data, '22', '')">grow at a whim</em> into any number of things.</span> <span class="hidden highlight" data-segment="22">The way that I do that is by thinking about the <em data-bind="click: revealText.bind($data, '23', '')">individual parts</em> instead of the whole when I am writing code.</span></p>
-
-						<p class="hidden highlight" data-segment="23">As a kid I used to build with Lego's every night. I would stay up till <em data-bind="click: revealText.bind($data, '24', '')">three in the morning</em><span class="hidden highlight" data-segment="24"> (back when cartoon network went to static after Space Ghost)</span>, building everything I possibly could. When I would do this, I never thought I need a spaceship, I would say I need a 2 x 4 that is red to <em data-bind="click: revealText.bind($data, '25', '')">build this section</em>. <span class="hidden highlight" data-segment="25">That's what CSS should do, building reusable, dynamic, agnostic blocks that can be combined to build <em data-bind="click: revealText.bind($data, '26', '')">anything</em>.</span> <span class="hidden highlight" data-segment="26">And when you just have to have that trapdoor so that the evil wizard can be <em data-bind="click: revealText.bind($data, '27', '')">defeated</em>, you can create a new class.</span></p>
-
-						<p class="hidden highlight" data-segment="27">You made it! Congratulations! I honestly didn't think anyone would read all of this, but you have proved me wrong.</p>
-					</section>
-				</div>
 				</span>
-			</span>
-		</span>.
-	</section>
+			</span>.
+		</section>
+	</script>
 
-	<footer class="footer-menu code hidden highlight">
-		<button class="ghost" data-bind="click: cycleBackgrounds">Cycle Backgrounds</button>
-		<button class="ghost" data-bind="click: randomFont">Randomize Font</button>
-		<button class="ghost" data-bind="click: unicornJs">Unicorn.js</button>
-		<button class="ghost" data-bind="click: popOfColor">Pop of Color</button>
-		<small>(CRTL + ~) opens this menu</small>
-	</footer>
+	<script type="text/x-template" id="nav_section_template">
+		<nav class="trophy-case">
+			<a class="trophy polished ion-social-github-outline" href="https://github.com/LanceTurri" target="_blank" rel="noreferrer"></a>
+			<a class="trophy ion-social-linkedin-outline" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer"></a>
+			<span class="trophy ion-social-codepen-outline"></span>
+			<span class="trophy ion-images" @click="cycleBackgrounds"></span>
+			<span class="trophy ion-ios-refresh-empty" @click="chooseRandomFont"></span>
+		</nav>
+	</script>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-	<script type="text/javascript" src="dist/scripts/app.min.js"></script>
+	<script type="text/x-template" id="footer_section_template">
+		<footer class="footer-menu code hidden highlight">
+			<button class="ghost" @click="popOfColor n>
+			all>(CRTL + ~) opens this menu</small>
+		</footer>
+	</script>
+
+	<!-- Javascript files, vendor and source -->
+	<script type="text/javascript" src="dist/scripts/app.bundle.min.js"></script>
 </body>
 </html>

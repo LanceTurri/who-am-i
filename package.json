@@ -1,6 +1,6 @@
 {
   "name": "who-am-i",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Portfolio site",
   "dependencies": {},
   "devDependencies": {
@@ -9,7 +9,6 @@
     "gulp-autoprefixer": "^5.0.0",
     "gulp-csso": "^3.0.1",
     "gulp-debug": "^3.2.0",
-    "gulp-if": "^2.0.1",
     "gulp-imagemin": "^4.1.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-notify": "^3.2.0",
@@ -17,20 +16,20 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-typescript": "^4.0.1",
-    "gulp-uglify": "^3.0.0",
-    "imagemin-pngquant": "^5.0.1",
     "normalize.css": "^8.0.0",
     "stylelint": "^9.1.1",
     "stylelint-config-standard": "^18.2.0",
+    "ts-loader": "^3.5.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "vue": "^2.5.13"
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "vue": "^2.5.13",
+    "webpack-stream": "^4.0.2"
   },
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:scss",
     "lint:ts": "./node_modules/tslint/bin/tslint --fix 'src/scripts/*.ts'",
-    "lint:scss": "./node_modules/stylelint/bin/stylelint.js './src/styles/**/*.scss' --syntax scss --fix",
-    "test": "npm test"
+    "lint:scss": "./node_modules/stylelint/bin/stylelint.js './src/styles/**/*.scss' --syntax scss --fix"
   },
   "repository": {
     "type": "git",
@@ -40,7 +39,7 @@
     "Portfolio"
   ],
   "author": "Lance Turri",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/LanceTurri/who-am-i/issues"
   },

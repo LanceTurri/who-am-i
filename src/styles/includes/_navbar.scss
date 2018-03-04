@@ -1,30 +1,47 @@
 // Top nav or the trophy case section.
 // =============================================================================
 .trophy-case {
-    font-size: 12px;
-    opacity: 0.2;
-    padding: 15px 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    padding-bottom: 15px;
     position: fixed;
-    text-align: center;
     top: 0;
-    transition: opacity 0.5s ease-out;
+    transition: all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    // MAGIC NUMBER: 20px is 15px transparent space beneath and a 5px space for
+    // the colored ribbon to show through at the top of the page.
+    transform: translateY(calc(-100% + 20px));
     width: 100%;
 
     &:hover {
         opacity: 1;
+        transform: translateY(0);
     }
 
     .trophy {
-        color: $grey-light;
-        display: inline-block;
-        opacity: 0.5;
+        color: #ffffff;
+        display: none;
+        justify-content: center;
+        opacity: 0.8;
+        padding: 15px;
         pointer-events: none;
+        text-decoration: none;
+        transition: all 0.5s ease-out;
         width: 10%;
 
         &.polished {
-            color: $purple;
+            background: #000000;
+            color: $grey-light;
             cursor: pointer;
+            display: flex;
             pointer-events: all;
+
+            &:hover {
+                background: $purple;
+                color: lighten($grey-light, 90%);
+                opacity: 1;
+            }
         }
 
         &::before {
