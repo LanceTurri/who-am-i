@@ -1,15 +1,19 @@
 // Article styling to make this look like a magazine.
 // =============================================================================
-.article {
-    align-content: center;
+.storybook {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 0 auto;
     max-width: 675px;
-    overflow: auto;
     text-align: justify;
     width: 80%;
+
+    .storybook__container {
+        max-height: 100%;
+        overflow: auto;
+    }
 
     em {
         cursor: pointer;
