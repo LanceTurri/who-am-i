@@ -1,0 +1,51 @@
+// Global styling
+// =============================================================================
+* {
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+        box-sizing: inherit;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    font-size: 24px;
+    line-height: 150%;
+    margin: 0;
+    text-align: center;
+}
+
+.main-wrapper {
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-grow: 1;
+    padding: 75px 0;
+}
+
+.page-wrapper {
+    align-items: center;
+    display: flex;
+    flex: 1 0 100%;
+    justify-content: center;
+}
+
+.button--ghost {
+    background-color: transparent;
+    border: 1px solid #f5f5f5;
+    color: #f5f5f5;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 16px;
+    margin-top: 50px;
+    opacity: 0.6;
+    padding: 10px 15px;
+    text-transform: uppercase;
+}

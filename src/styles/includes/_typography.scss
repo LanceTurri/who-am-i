@@ -1,0 +1,35 @@
+// Typography opinions
+// =============================================================================
+h1,
+h2,
+h3 {
+    font-weight: 400;
+}
+
+h2 {
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 135%;
+    margin: 10px 0;
+}
+
+.playfair {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+}
+
+// .raleway {
+// 	font-family: 'Raleway', serif;
+// }
+
+.code {
+    font-family: 'VT323', sans-serif;
+}
+
+.josefin {
+    font-family: 'Voltaire', serif;
+}
+
+.amatic {
+    font-family: 'Amatic SC', serif;
+}

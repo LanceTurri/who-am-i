@@ -1,0 +1,47 @@
+// Background image classes
+// ============================================================================
+
+.bulbs {
+    background-image: url('../images/bulbs.png');
+    background-position: right top;
+    color: $white-dark;
+}
+
+.constellation {
+    background-image: url('../images/constellation.png');
+}
+
+.mac {
+    background-image: url('../images/mac.png');
+}
+
+.mars {
+    background-image: url('../images/mars.png');
+    background-position: center center;
+    color: $white-dark;
+}
+
+.mountains {
+    background-image: url('../images/mountains.png');
+    background-position: right bottom;
+    color: $white-dark;
+}
+
+.satellites {
+    background-image: url('../images/satellites.png');
+}
+
+.underwater {
+    background-image: url('../images/underwater.png');
+    color: $white-dark;
+}
+
+.unicorn {
+    background-image: url('../images/unicorn.png');
+    background-position: right bottom;
+}
+
+.wild {
+    background-image: url('../images/wild.png');
+    background-position: center center;
+}

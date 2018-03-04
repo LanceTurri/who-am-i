@@ -1,0 +1,20 @@
+.flex {
+    display: flex !important;
+}
+
+.flex--col {
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0.7;
+}
+
+.selected {
+    opacity: 1;
+}
+
+.pointed {
+    cursor: pointer;
+}
