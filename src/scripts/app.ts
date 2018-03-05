@@ -1,37 +1,65 @@
 import Vue from 'vue';
 
-// Add a function to allow jQuery to work with animate.css
-// $.fn.extend({
-//     animateCss: function (animationName, chainElement, chainAnimation) {
 
-//         const hideAfterwards = animationName === 'fadeOut' ? true : false;
-//         const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+// Helper functions
+// =============================================================================
+const clearAnimationClasses = (element: HTMLElement) => {
+    element.classList.remove('fade-out', 'fade-in');
+};
 
-//         // $(this).removeClass('hidden').addClass('animated ' + animationName).one(animationEnd, function() {
-//             // $(this).removeClass('animated ' + animationName);
+// TODO: Rewrite with a promise architecture.
+const fadeElements = (animationElementsArray: HTMLElement[], delayTime: number, resolve: () => void) => {
+    if (animationElementsArray.length > 0) {
+        const elementToAnimate = animationElementsArray.shift() as HTMLElement;
 
-//             if(hideAfterwards) {
-//                 // $(this).addClass('hidden');
-//             }
+        if (elementToAnimate.classList.contains('fade-in')) {
+            console.log('fading out!');
+            elementToAnimate.classList.add('fade-out');
 
-//             if(chainElement && chainAnimation) {
-//                 // Recursively call animate again to chain animations
-//                 chainElement.animateCss(chainAnimation);
-//             }
-//         });
+            // HACK: We need to wait for the animation to complete before 'resetting' the
+            // animation classes on it. Change this to an on animation end event.
+            setTimeout(() => {
+                clearAnimationClasses(elementToAnimate);
+            }, 500);
+        } else {
+            console.log('fading in!');
+            elementToAnimate.classList.add('fade-in');
+        }
 
-//         return this;
-//     }
-// });
+        if (elementToAnimate.dataset.animateAfter && elementToAnimate.dataset.animateAfter) {
+            setTimeout(() => {
+                elementToAnimate.classList.add(elementToAnimate.dataset.animateAfter as string);
+            }, 500);
+        }
 
+        // Recursively call the function, passing it the augmented array.
+        setTimeout(() => {
+            fadeElements(animationElementsArray, delayTime, resolve);
+        }, delayTime);
+    } else {
+        // While perfect is the enemy of done, this is some pretty hacky code.
+        // TODO: come refactor this function to not be so tenuous.
+        setTimeout(() => {
+            resolve();
+        }, 200);
+    }
+};
+
+const animationHandler = (animationElementsArray: HTMLElement[], delayTime: number = 300) => {
+    return new Promise((resolve, reject) => {
+        fadeElements(animationElementsArray, delayTime, resolve);
+    });
+};
+
+
+// Initial data object for page viewmodel
+// =============================================================================
 const data = {
     backgroundCollection: [
         'bulbs',
         'constellation',
-        'mac',
         'mars',
         'mountains',
-        'satellites',
         'underwater',
         'unicorn',
         'wild',
@@ -41,12 +69,13 @@ const data = {
     fonts: [
         'playfair',
         'code',
-        'josefin',
+        'satisfy',
         'amatic',
+        'voltaire',
     ],
-    hasSelectedFont: false,
+    hasSelectedFont: true,
     revealCounter: 0,
-    selectedFont: '',
+    selectedFont: 'amatic',
     views: [
         'name',
         'font_selection',
@@ -54,11 +83,24 @@ const data = {
     ],
 };
 
+
+// Page subcomponents
+// =============================================================================
 Vue.component('name-page', {
     methods: {
         changeView() {
             this.$emit('changeview');
         },
+    },
+    mounted() {
+        // Initiate the animation.
+        // TODO: Instead of an arbitrary setTimeout delay, poll for the element to exist.
+        setTimeout(function() {
+            const animationElementsArray = Array.prototype.slice
+                .call(document.querySelectorAll('#name [data-animate]'));
+
+            animationHandler(animationElementsArray, 300);
+        }, 1000);
     },
     template: '#name_page_template',
 });
@@ -83,7 +125,7 @@ Vue.component('storybook-page', {
         changeView() {
             this.$emit('changeview');
         },
-        revealText: function(numberString: string, event: Event) {
+        revealText: function(numberString: string, event: Event, backgroundImage?: string) {
             // Functionality to reveal next segment of text
             const elementToReveal = document.querySelector(`[data-segment="${numberString}"]`);
             (event.target as HTMLElement).classList.add('exhausted');
@@ -96,6 +138,10 @@ Vue.component('storybook-page', {
                 }, 500);
 
                 this.$emit('incrementcounter');
+
+                if (backgroundImage) {
+                    this.$emit('changebackground', backgroundImage);
+                }
             } else {
                 console.warn('no element to reveal');
             }
@@ -116,6 +162,9 @@ Vue.component('nav-section', {
             this.$emit('cyclebackgrounds');
         },
     },
+    props: [
+        'revealCounter',
+    ],
     template: '#nav_section_template',
 });
 
@@ -128,6 +177,9 @@ Vue.component('footer-section', {
     template: '#footer_section_template',
 });
 
+
+// Main page viewmodel
+// =============================================================================
 const portfolioViewModel = new Vue({
     data: data,
     el: '#vue-app',
@@ -138,6 +190,9 @@ const portfolioViewModel = new Vue({
         console.log('Initialization complete. Please enjoy your stay.');
     },
     methods: {
+        changeBackground: function(backgroundImage: string) {
+            this.backgroundImage = backgroundImage;
+        },
         changeFont: function(font: string) {
             this.selectedFont = font;
             this.hasSelectedFont = true;
@@ -150,11 +205,26 @@ const portfolioViewModel = new Vue({
                 const nextPageElement = document.getElementById(`${this.views[currentViewIndex + 1]}`);
 
                 if (nextPageElement) {
-                    this.currentView = this.views[currentViewIndex + 1];
-                    nextPageElement.classList.remove('hidden');
-                    currentPageElement.classList.add('hidden');
+                    // Fade out elements from the current view.
+                    const currentPageElementsArray = Array.prototype.slice
+                        .call(currentPageElement.querySelectorAll('[data-animate]'));
+
+                    animationHandler(currentPageElementsArray, 300).then(() => {
+                        // Bring in new page section.
+                        this.currentView = this.views[currentViewIndex + 1];
+                        currentPageElement.classList.add('hidden');
+                        nextPageElement.classList.remove('hidden');
+
+                        // Animate in the elements on the new page.
+                        const nextPageElementsArray = Array.prototype.slice
+                            .call(nextPageElement.querySelectorAll('[data-animate]'));
+
+                        setTimeout(() => {
+                            animationHandler(nextPageElementsArray, 200);
+                        }, 200);
+                    });
                 } else {
-                    console.warn('no next page element');
+                    console.warn('No next page element!');
                 }
             }
 
@@ -168,27 +238,7 @@ const portfolioViewModel = new Vue({
             this.backgroundImage = this.backgroundCollection[imageNumber + 1];
         },
         incrementCounter: function() {
-            const value = this.revealCounter;
-
-            switch (value) {
-                case 3:
-                    // $('.article').addClass('three');
-                    // $('.trophy').filter(':not(".polished")').first().addClass('polished');
-                    break;
-
-                case 5:
-                    // $('.article').addClass('five');
-                    // $('.trophy').filter(':not(".polished")').first().addClass('polished');
-                    break;
-
-                case 10:
-                    // $('.article').addClass('ten');
-                    // $('.trophy').filter(':not(".polished")').first().addClass('polished');
-                    break;
-
-                default:
-                    break;
-            }
+            this.revealCounter = this.revealCounter + 1;
         },
     },
 });
@@ -206,13 +256,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
-    setTimeout(function() {
-        // TODO: Make this selector more specific
-        const h1Element = document.querySelector('h1');
-
-        if (h1Element) {
-            h1Element.classList.add('fadeIn');
-        }
-    }, 2000);
 });

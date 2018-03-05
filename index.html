@@ -25,25 +25,22 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 	
 	<!-- Font imports -->
 	<!-- I know, I know. There are quite a few fonts here, but you're going to love it. -->
-	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
-	
-	<link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic' rel='stylesheet' type='text/css'>
-	
-	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>	
 	<link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
-	
 	<link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+
+	<!-- Icon font -->
 	<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 
 <body>
 	<main id="vue-app" class="main-wrapper" :class="backgroundImage">
-		<nav-section @chooserandomfont="chooseRandomFont" @cyclebackgrounds="cycleBackgrounds"></nav-section>
+		<nav-section @chooserandomfont="chooseRandomFont" @cyclebackgrounds="cycleBackgrounds" :reveal-counter="revealCounter"></nav-section>
 		<name-page @changeview="changeView"></name-page>
 		<font-selection-page @changeview="changeView" @changefont="changeFont" :selected-font="selectedFont"></font-selection-page>
-		<storybook-page @changeview="changeView" @incrementcounter="incrementCounter" :selected-font="selectedFont"></storybook-page>
+		<storybook-page @changeview="changeView" @incrementcounter="incrementCounter" @changebackground="changeBackground" :selected-font="selectedFont"></storybook-page>
 		<footer-section></footer-section>
 	</main>
 
@@ -51,25 +48,26 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 	<!-- Vue.js string templates -->
 	<script type="text/x-template" id="name_page_template">
 		<section class="page-wrapper" id="name">
-			<h1 class="pointed amatic" @click="changeView">Lance Turri</h1>
+			<h1 class="full-name pointed amatic" @click="changeView" data-animate="fade-in-right" data-animate-after="breathe">Lance Turri</h1>
 		</section>
 	</script>
 
 	<script type="text/x-template" id="font_selection_page_template">
 		<section class="page-wrapper font-selection flex--col hidden" id="font_selection">
-			<p class="font-selection__intro">Choose a font</p>
-			<h2 class="font-selection__item playfair" @click="changeFont('playfair')" :class="[selectedFont === 'playfair' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
-			<h2 class="font-selection__item code" @click="changeFont('code')" :class="[selectedFont === 'code' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
-			<h2 class="font-selection__item josefin" @click="changeFont('josefin')" :class="[selectedFont === 'josefin' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
-			<h2 class="font-selection__item amatic" @click="changeFont('amatic')" :class="[selectedFont === 'amatic' ? 'selected' : '']">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<p class="font-selection__intro" data-animate="fade-in-right">Choose a font</p>
+			<h2 class="font-selection__item playfair" @click="changeFont('playfair')" :data-active="[selectedFont === 'playfair' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item code" @click="changeFont('code')" :data-active="[selectedFont === 'code' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item amatic" @click="changeFont('amatic')" :data-active="[selectedFont === 'amatic' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item satisfy" @click="changeFont('satisfy')" :data-active="[selectedFont === 'satisfy' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a UI developer.</h2>
+			<h2 class="font-selection__item voltaire" @click="changeFont('voltaire')" :data-active="[selectedFont === 'voltaire' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a UI developer.</h2>
 	
-			<button class="button--ghost" @click="changeView">Continue</button>
+			<button class="button--ghost ion-ios-arrow-thin-right" @click="changeView" data-animate="fade-in-right" data-animate-after="breathe"></button>
 		</section>
 	</script>
 
 	<script type="text/x-template" id="storybook_page_template">
 		<section class="page-wrapper storybook hidden" id="storybook" :class="selectedFont">
-			<div class="storybook__container">
+			<div class="storybook__container" data-animate="fade-in-right">
 				Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
 				<span class="hidden highlight" data-segment="1">Steven</span>
 				Turri</em> and I am <em @click="revealText('2', $event)">a</em>
@@ -77,7 +75,7 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 				<em @click="revealText('3', $event)">front end developer</em>
 		
 				<span class="hidden highlight" data-segment="3">and scrum master. Some of my interests include
-					<em @click="revealText('4', $event)">reading</em><span class="hidden highlight" data-segment="4"> (I'm a philosophy major)</span>, watching rugby, and writing<em @click="revealText('5', $event)"> scalable css</em>.
+					<em @click="revealText('4', $event, 'mars')">reading</em><span class="hidden highlight" data-segment="4"> (I'm a philosophy major)</span>, watching rugby, and writing<em @click="revealText('5', $event)"> scalable css</em>.
 		
 							<span class="hidden highlight" data-segment="5">
 								I love having a design in front of me and finding the best, most efficient way of making it come to
@@ -124,7 +122,6 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 										<span class="hidden highlight" data-segment="16"> (that's what comments are for!)</span>.
 									</span>
 								</p>
-								<a href="#">How about some Pens?</a>
 							</div>
 		
 							<em @click="revealText('17', $event)">Your Favorite movies</em>
@@ -204,18 +201,17 @@ Control + ~ will pull up a menu with various functions you can have fun with.
 
 	<script type="text/x-template" id="nav_section_template">
 		<nav class="trophy-case">
-			<a class="trophy polished ion-social-github-outline" href="https://github.com/LanceTurri" target="_blank" rel="noreferrer"></a>
-			<a class="trophy ion-social-linkedin-outline" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer"></a>
-			<span class="trophy ion-social-codepen-outline"></span>
-			<span class="trophy ion-images" @click="cycleBackgrounds"></span>
-			<span class="trophy ion-ios-refresh-empty" @click="chooseRandomFont"></span>
+			<a class="trophy-case__item ion-social-github-outline" :class="[revealCounter >= 0 ? 'trophy-case__item--polished' : '']" href="https://github.com/LanceTurri" target="_blank" rel="noreferrer"></a>
+			<a class="trophy-case__item ion-social-linkedin-outline" :class="[revealCounter >= 3 ? 'trophy-case__item--polished' : '']" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer"></a>
+			<a class="trophy-case__item ion-social-codepen-outline" :class="[revealCounter >= 5 ? 'trophy-case__item--polished' : '']" href="https://codepen.io/LanceTurri" target="_blank" rel="noreferrer"></a>
+			<span class="trophy-case__item ion-images" :class="[revealCounter >= 10 ? 'trophy-case__item--polished' : '']" @click="cycleBackgrounds"></span>
+			<span class="trophy-case__item ion-ios-refresh-empty" :class="[revealCounter >= 15 ? 'trophy-case__item--polished' : '']" @click="chooseRandomFont"></span>
 		</nav>
 	</script>
 
 	<script type="text/x-template" id="footer_section_template">
 		<footer class="footer-menu code hidden highlight">
-			<button class="ghost" @click="popOfColor n>
-			all>(CRTL + ~) opens this menu</small>
+			<small>(CRTL + ~) opens this menu</small>
 		</footer>
 	</script>
 

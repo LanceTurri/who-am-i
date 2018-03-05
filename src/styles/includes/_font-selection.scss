@@ -1,19 +1,21 @@
 
 .font-selection__intro {
-    margin: 10px 0;
-    font-size: 14px;
+    border: 1px solid #f5f5f5;
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 30px;
+    padding: 10px 15px;
     text-transform: uppercase;
-    font-family: sans-serif;
 }
 
 .font-selection__item {
     background-color: #161616;
-    color: #e5e5e5;
+    color: #c5c5c5;
     cursor: pointer;
-    opacity: 0.7;
     padding: 0 20px;
     position: relative;
-    transition: opacity 0.5s linear;
+    transition: all 0.5s linear;
 
     &::before,
     &::after {
@@ -39,11 +41,11 @@
     }
 
     &:hover {
-        opacity: 1;
+        color: #f5f5f5;
     }
 
-    &.selected {
-        opacity: 1;
+    &[data-active='true'] {
+        color: #f5f5f5;
 
         &::before,
         &::after {

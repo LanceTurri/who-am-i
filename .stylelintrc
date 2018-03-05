@@ -33,6 +33,7 @@
         "media-feature-colon-space-before": "never",
         "media-feature-colon-space-after": "always",
         "max-empty-lines": 2,
+        "at-rule-no-unknown": null,
     },
     "ignoreFiles": ["./dist/**/*.css", "./node_modules"]
 }

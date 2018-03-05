@@ -1,0 +1,26 @@
+$background-color-default: #111111 !default;
+$background-color-hover: $purple !default;
+$text-color: #e5e5e5 !default;
+
+@mixin create-theme($name, $background-color-default, $background-color-hover, $text-color) {
+    .#{$name} {
+        .trophy-case__item {
+            color: #ffffff;
+
+            &--polished {
+                background: $background-color-default;
+                color: $text-color;
+
+                &:hover {
+                    background: $background-color-hover;
+                    color: lighten($text-color, 90%);
+                }
+            }
+        }
+
+        .highlight {
+            background: lighten($background-color-default, 5%);
+            opacity: 0.9;
+        }
+    }
+}
