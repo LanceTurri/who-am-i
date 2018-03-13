@@ -29,7 +29,8 @@
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:scss",
     "lint:ts": "./node_modules/tslint/bin/tslint --fix 'src/scripts/*.ts'",
-    "lint:scss": "./node_modules/stylelint/bin/stylelint.js './src/styles/**/*.scss' --syntax scss --fix"
+    "lint:scss": "./node_modules/stylelint/bin/stylelint.js './src/styles/**/*.scss' --syntax scss --fix",
+    "serve": "gulp serve"
   },
   "repository": {
     "type": "git",
