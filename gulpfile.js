@@ -19,7 +19,7 @@ const paths = {
 };
 
 
-const error = (error) => `ERROR: ${error}`;
+const error = (error) => console.log(`ERROR: ${error}`);
 
 
 // Build tasks

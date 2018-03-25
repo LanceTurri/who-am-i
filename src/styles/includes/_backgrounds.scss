@@ -7,13 +7,15 @@
     color: $white-dark;
 }
 
+@include create-theme('bulbs', #f2c341, #f2c341, #e5e5e5);
+
+
 .constellation {
     background-image: url('../images/constellation.png');
 }
 
-.mac {
-    background-image: url('../images/mac.png');
-}
+@include create-theme('constellation', #111111, #111111, #e5e5e5);
+
 
 .mars {
     background-image: url('../images/mars.png');
@@ -21,27 +23,51 @@
     color: $white-dark;
 }
 
+@include create-theme('mars', #ea1646, #ea1646, #e5e5e5);
+
+
 .mountains {
     background-image: url('../images/mountains.png');
     background-position: right bottom;
     color: $white-dark;
 }
 
-.satellites {
-    background-image: url('../images/satellites.png');
-}
+@include create-theme('mountains', #3e5565, #3e5565, #e5e5e5);
+
 
 .underwater {
     background-image: url('../images/underwater.png');
+    background-position: center center;
     color: $white-dark;
 }
+
+@include create-theme('underwater', #1465a5, lighten(#1465a5, 5%), #e5e5e5);
+
 
 .unicorn {
     background-image: url('../images/unicorn.png');
     background-position: right bottom;
+
+    &::before {
+        background-color: #799993;
+        bottom: 0;
+        content: '';
+        display: block;
+        left: 0;
+        opacity: 0.2;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
+
+@include create-theme('unicorn', #799993, darken(#799993, 15%), #e5e5e5);
+
 
 .wild {
     background-image: url('../images/wild.png');
     background-position: center center;
+    color: $white-dark;
 }
+
+@include create-theme('wild', #195679, darken(#195679, 5%), #e5e5e5);
