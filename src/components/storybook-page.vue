@@ -208,10 +208,5 @@ export default Vue.extend({
             opacity: 1;
         }
     }
-
-    &.three::first-letter {
-        font-size: 64px;
-    }
 }
 </style>
-

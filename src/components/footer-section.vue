@@ -20,11 +20,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import '../styles/includes/_variables.scss';
 
+$footer-background: $wild-sand !default;
+$footer-border: 1px solid $mine-shaft !default;
+$footer-text-color: $mine-shaft !default;
+
 .footer-menu {
-    background: #f5f5f5;
-    border-top: 1px solid $grey-dark;
+    background: $footer-background;
+    border-top: $footer-border;
     bottom: 0;
-    color: $grey-dark;
+    color: $footer-text-color;
     position: fixed;
     width: 100%;
     left: 0;
