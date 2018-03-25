@@ -34,6 +34,8 @@
         "media-feature-colon-space-after": "always",
         "max-empty-lines": 2,
         "at-rule-no-unknown": null,
+        "string-no-newline": null,
+        "no-eol-whitespace": null,
     },
     "ignoreFiles": ["./dist/**/*.css", "./node_modules"]
 }
