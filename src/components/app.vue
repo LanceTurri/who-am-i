@@ -11,6 +11,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import animationHandler from '../scripts/animation';
+import { findNextInArray } from '../scripts/helpers';
 
 // Child components
 import Font from '../components/font-selection-page.vue';
@@ -34,7 +35,7 @@ export default Vue.extend({
             ],
             backgroundImage: 'bulbs',
             currentView: 'name',
-            fonts: [
+            fontCollection: [
                 'playfair',
                 'code',
                 'satisfy',
@@ -58,14 +59,14 @@ export default Vue.extend({
         console.log('Initialization complete. Please enjoy your stay.');
     },
     methods: {
-        changeBackground: function(backgroundImage: string) {
+        changeBackground(backgroundImage: string) {
             this.backgroundImage = backgroundImage;
         },
-        changeFont: function(font: string) {
+        changeFont(font: string) {
             this.selectedFont = font;
             this.hasSelectedFont = true;
         },
-        changeView: function(event: Event) {
+        changeView(event: Event) {
             const currentPageElement = document.getElementById(this.currentView);
 
             if (currentPageElement) {
@@ -95,17 +96,16 @@ export default Vue.extend({
                     console.warn('No next page element!');
                 }
             }
-
-            // $parentCache.animateCss('fadeOut', $chainElement, 'fadeInUp');
         },
-        chooseRandomFont: function() {
-            this.selectedFont = this.fonts[Math.floor(Math.random() * this.fonts.length)];
+        cycleBackgrounds() {
+            const nextImageIndex = findNextInArray(this.backgroundImage, this.backgroundCollection);
+            this.backgroundImage = this.backgroundCollection[nextImageIndex];
         },
-        cycleBackgrounds: function() {
-            const imageNumber = this.backgroundCollection.indexOf(this.backgroundImage);
-            this.backgroundImage = this.backgroundCollection[imageNumber + 1];
+        cycleFonts() {
+            const nextFontIndex = findNextInArray(this.selectedFont, this.fontCollection);
+            this.selectedFont = this.fontCollection[nextFontIndex];
         },
-        incrementCounter: function() {
+        incrementCounter() {
             this.revealCounter = this.revealCounter + 1;
         },
     },

@@ -4,7 +4,7 @@
         <a class="trophy-case__item ion-social-linkedin-outline" :class="[revealCounter >= 3 ? 'trophy-case__item--polished' : '']" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer"></a>
         <a class="trophy-case__item ion-social-codepen-outline" :class="[revealCounter >= 5 ? 'trophy-case__item--polished' : '']" href="https://codepen.io/LanceTurri" target="_blank" rel="noreferrer"></a>
         <span class="trophy-case__item ion-images" :class="[revealCounter >= 10 ? 'trophy-case__item--polished' : '']" @click="cycleBackgrounds"></span>
-        <span class="trophy-case__item ion-ios-refresh-empty" :class="[revealCounter >= 15 ? 'trophy-case__item--polished' : '']" @click="chooseRandomFont"></span>
+        <span class="trophy-case__item ion-ios-refresh-empty" :class="[revealCounter >= 15 ? 'trophy-case__item--polished' : '']" @click="cycleFonts"></span>
     </nav>
 </template>
 

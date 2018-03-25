@@ -1,6 +1,6 @@
 <template>
     <section class="page-wrapper storybook hidden" id="storybook" :class="selectedFont">
-        <div class="storybook__container" data-animate="fade-in-right">
+        <div class="storybook__container" data-animate="fade-in-right" data-simplebar>
             Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
             <span class="hidden highlight" data-segment="1">Steven</span>
             Turri</em> and I am <em @click="revealText('2', $event)">a</em>

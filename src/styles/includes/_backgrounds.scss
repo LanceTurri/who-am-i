@@ -4,7 +4,7 @@
 .bulbs {
     background-image: url('../images/bulbs.png');
     background-position: right top;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
 @include create-theme('bulbs', #f2c341, #f2c341, #e5e5e5);
@@ -20,7 +20,7 @@
 .mars {
     background-image: url('../images/mars.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
 @include create-theme('mars', #ea1646, #ea1646, #e5e5e5);
@@ -29,7 +29,7 @@
 .mountains {
     background-image: url('../images/mountains.png');
     background-position: right bottom;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
 @include create-theme('mountains', #3e5565, #3e5565, #e5e5e5);
@@ -38,7 +38,7 @@
 .underwater {
     background-image: url('../images/underwater.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
 @include create-theme('underwater', #1465a5, lighten(#1465a5, 5%), #e5e5e5);
@@ -67,7 +67,7 @@
 .wild {
     background-image: url('../images/wild.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
 @include create-theme('wild', #195679, darken(#195679, 5%), #e5e5e5);
