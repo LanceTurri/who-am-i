@@ -56,15 +56,17 @@
                     </p>
                 </div>
 
-                <div>
+                <div class="mt-25">
                     <em @click="revealText('17', $event)">Your Favorite movies</em>
 
                     <div class="hidden highlight" data-segment="17">
-                        Hmm... now that you ask, I think I'll have to go with my top three (in no particular order).
+                        Hmm... now that you ask, I think I'll have to go with my top five (in no particular order).
 
                         <ul>
-                            <li>Pulp Fiction</li>
+                            <li>Skyfall</li>
                             <li>The Princess Bride</li>
+                            <li>Blade Runner</li>
+                            <li>The Witch</li>
                             <li>Howl's Moving Castle</li>
                         </ul>
                     </div>
