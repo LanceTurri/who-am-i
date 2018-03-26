@@ -26,7 +26,7 @@
 
             <div class="hidden highlight" data-segment="10">
                 <em @click="revealText('9', $event)">Philosophy on CSS</em>
-                <div class="hidden highlight" data-segment="9">My HTML and CSS writing philosophy (if you can call it that) is very simple, write as 
+                <div class="hidden highlight mb-25" data-segment="9">My HTML and CSS writing philosophy (if you can call it that) is very simple, write as 
                     <em @click="revealText('11', $event)">little as possible</em>.
                     
                     <span class="hidden highlight" data-segment="11">
