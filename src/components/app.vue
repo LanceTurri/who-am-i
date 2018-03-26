@@ -1,9 +1,27 @@
 <template>
     <main id="vue-app" class="main-wrapper" :class="backgroundImage">
-		<nav-section @chooserandomfont="chooseRandomFont" @cyclebackgrounds="cycleBackgrounds" :reveal-counter="revealCounter"></nav-section>
-		<name-page @changeview="changeView"></name-page>
-		<font-selection-page @changeview="changeView" @changefont="changeFont" :selected-font="selectedFont"></font-selection-page>
-		<storybook-page @changeview="changeView" @incrementcounter="incrementCounter" @changebackground="changeBackground" :selected-font="selectedFont"></storybook-page>
+		<nav-section
+            @cyclefonts="cycleFonts"
+            @cyclebackgrounds="cycleBackgrounds"
+            :reveal-counter="revealCounter"></nav-section>
+
+		<name-page 
+            @changeview="changeView"
+            :current-view="currentView"></name-page>
+
+		<font-selection-page
+            @changeview="changeView"
+            @changefont="changeFont"
+            :selected-font="selectedFont"
+            :current-view="currentView"></font-selection-page>
+
+		<storybook-page 
+            @changeview="changeView"
+            @incrementcounter="incrementCounter"
+            @changebackground="changeBackground"
+            :selected-font="selectedFont"
+            :current-view="currentView"></storybook-page>
+
 		<footer-section></footer-section>
 	</main>
 </template>
@@ -59,14 +77,14 @@ export default Vue.extend({
         console.log('Initialization complete. Please enjoy your stay.');
     },
     methods: {
-        changeBackground(backgroundImage: string) {
+        changeBackground: function(backgroundImage: string) {
             this.backgroundImage = backgroundImage;
         },
-        changeFont(font: string) {
+        changeFont: function(font: string) {
             this.selectedFont = font;
             this.hasSelectedFont = true;
         },
-        changeView(event: Event) {
+        changeView: function(event: Event) {
             const currentPageElement = document.getElementById(this.currentView);
 
             if (currentPageElement) {
@@ -78,11 +96,9 @@ export default Vue.extend({
                     const currentPageElementsArray = Array.prototype.slice
                         .call(currentPageElement.querySelectorAll('[data-animate]'));
 
-                    animationHandler(currentPageElementsArray, 300).then(() => {
+                    animationHandler(currentPageElementsArray, 200).then(() => {
                         // Bring in new page section.
                         this.currentView = this.views[currentViewIndex + 1];
-                        currentPageElement.classList.add('hidden');
-                        nextPageElement.classList.remove('hidden');
 
                         // Animate in the elements on the new page.
                         const nextPageElementsArray = Array.prototype.slice
@@ -97,15 +113,15 @@ export default Vue.extend({
                 }
             }
         },
-        cycleBackgrounds() {
+        cycleBackgrounds: function() {
             const nextImageIndex = findNextInArray(this.backgroundImage, this.backgroundCollection);
             this.backgroundImage = this.backgroundCollection[nextImageIndex];
         },
-        cycleFonts() {
+        cycleFonts: function() {
             const nextFontIndex = findNextInArray(this.selectedFont, this.fontCollection);
             this.selectedFont = this.fontCollection[nextFontIndex];
         },
-        incrementCounter() {
+        incrementCounter: function() {
             this.revealCounter = this.revealCounter + 1;
         },
     },

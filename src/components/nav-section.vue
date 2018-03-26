@@ -1,10 +1,10 @@
 <template>
   <nav class="trophy-case">
-        <a class="trophy-case__item ion-social-github-outline" :class="[revealCounter >= 0 ? 'trophy-case__item--polished' : '']" href="https://github.com/LanceTurri" target="_blank" rel="noreferrer"></a>
-        <a class="trophy-case__item ion-social-linkedin-outline" :class="[revealCounter >= 3 ? 'trophy-case__item--polished' : '']" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer"></a>
-        <a class="trophy-case__item ion-social-codepen-outline" :class="[revealCounter >= 5 ? 'trophy-case__item--polished' : '']" href="https://codepen.io/LanceTurri" target="_blank" rel="noreferrer"></a>
-        <span class="trophy-case__item ion-images" :class="[revealCounter >= 10 ? 'trophy-case__item--polished' : '']" @click="cycleBackgrounds"></span>
-        <span class="trophy-case__item ion-ios-refresh-empty" :class="[revealCounter >= 15 ? 'trophy-case__item--polished' : '']" @click="cycleFonts"></span>
+        <a class="trophy-case__item ion-social-github-outline" :class="[revealCounter >= 0 ? 'trophy-case__item--polished' : '']" href="https://github.com/LanceTurri" target="_blank" rel="noreferrer" title="Lance Turri's Github"></a>
+        <a class="trophy-case__item ion-social-linkedin-outline" :class="[revealCounter >= 3 ? 'trophy-case__item--polished' : '']" href="https://www.linkedin.com/in/lance-turri-37b39030" target="_blank" rel="noreferrer" title="Lance Turri's LinkedIn Profile"></a>
+        <a class="trophy-case__item ion-social-codepen-outline" :class="[revealCounter >= 5 ? 'trophy-case__item--polished' : '']" href="https://codepen.io/LanceTurri" target="_blank" rel="noreferrer" title="Lance Turri's Codepen"></a>
+        <span class="trophy-case__item ion-images" :class="[revealCounter >= 10 ? 'trophy-case__item--polished' : '']" @click="cycleBackgrounds" role="button" title="Cycle through background images"></span>
+        <span class="trophy-case__item ion-ios-refresh-empty" :class="[revealCounter >= 15 ? 'trophy-case__item--polished' : '']" @click="cycleFonts" role="button" title="Cycle through available fonts"></span>
     </nav>
 </template>
 
@@ -13,8 +13,8 @@ import Vue from 'vue'
 export default Vue.extend({
     name: 'nav-section',
     methods: {
-        chooseRandomFont: function() {
-            this.$emit('chooserandomFont');
+        cycleFonts: function() {
+            this.$emit('cyclefonts');
         },
         cycleBackgrounds: function() {
             this.$emit('cyclebackgrounds');

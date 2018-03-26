@@ -1,5 +1,5 @@
 <template>
-    <section class="page-wrapper storybook hidden" id="storybook" :class="selectedFont">
+    <section class="page-wrapper storybook" id="storybook" :class="[selectedFont, currentView === 'storybook' ? '' : 'hidden']">
         <div class="storybook__container" data-animate="fade-in-right" data-simplebar>
             Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
             <span class="hidden highlight" data-segment="1">Steven</span>
@@ -164,6 +164,7 @@ export default Vue.extend({
     },
     props: [
         'selectedFont',
+        'currentView',
     ],
 });
 </script>

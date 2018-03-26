@@ -1,5 +1,5 @@
 <template>
-    <section class="page-wrapper font-selection flex--col hidden" id="font_selection">
+    <section class="page-wrapper font-selection flex--col" id="font_selection" :class="[currentView === 'font_selection' ? '' : 'hidden']">
         <p class="font-selection__intro" data-animate="fade-in-right">Choose a font</p>
         <h2 class="font-selection__item playfair" @click="changeFont('playfair')" :data-active="[selectedFont === 'playfair' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a front end architect.</h2>
         <h2 class="font-selection__item code" @click="changeFont('code')" :data-active="[selectedFont === 'code' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a front end architect.</h2>
@@ -26,6 +26,7 @@ export default Vue.extend({
     },
     props: [
         'selectedFont',
+        'currentView',
     ],
 });
 </script>

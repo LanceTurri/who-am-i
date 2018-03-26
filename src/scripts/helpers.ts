@@ -7,7 +7,8 @@ const findNextInArray = (item: string, itemArray: string[]): number => {
         return 0;
     }
 
-    return itemIndex++ || 0;
+    itemIndex++;
+    return itemIndex;
 };
 
 export { findNextInArray };

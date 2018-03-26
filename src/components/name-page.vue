@@ -1,5 +1,5 @@
 <template>
-    <section class="page-wrapper" id="name">
+    <section class="page-wrapper" id="name" :class="[currentView === 'name' ? '' : 'hidden']">
         <h1 class="full-name pointed amatic" @click="changeView" data-animate="fade-in-right" data-animate-after="breathe">Lance Turri</h1>
     </section>
 </template>
@@ -24,6 +24,9 @@ export default Vue.extend({
 
             animationHandler(animationElementsArray, 300);
         }, 1000);
-    }
+    },
+    props: [
+        'currentView'
+    ]
 });
 </script>
