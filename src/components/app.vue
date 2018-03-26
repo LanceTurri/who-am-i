@@ -1,9 +1,27 @@
 <template>
     <main id="vue-app" class="main-wrapper" :class="backgroundImage">
-		<nav-section @chooserandomfont="chooseRandomFont" @cyclebackgrounds="cycleBackgrounds" :reveal-counter="revealCounter"></nav-section>
-		<name-page @changeview="changeView"></name-page>
-		<font-selection-page @changeview="changeView" @changefont="changeFont" :selected-font="selectedFont"></font-selection-page>
-		<storybook-page @changeview="changeView" @incrementcounter="incrementCounter" @changebackground="changeBackground" :selected-font="selectedFont"></storybook-page>
+		<nav-section
+            @cyclefonts="cycleFonts"
+            @cyclebackgrounds="cycleBackgrounds"
+            :reveal-counter="revealCounter"></nav-section>
+
+		<name-page 
+            @changeview="changeView"
+            :current-view="currentView"></name-page>
+
+		<font-selection-page
+            @changeview="changeView"
+            @changefont="changeFont"
+            :selected-font="selectedFont"
+            :current-view="currentView"></font-selection-page>
+
+		<storybook-page 
+            @changeview="changeView"
+            @incrementcounter="incrementCounter"
+            @changebackground="changeBackground"
+            :selected-font="selectedFont"
+            :current-view="currentView"></storybook-page>
+
 		<footer-section></footer-section>
 	</main>
 </template>
@@ -11,6 +29,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import animationHandler from '../scripts/animation';
+import { findNextInArray } from '../scripts/helpers';
 
 // Child components
 import Font from '../components/font-selection-page.vue';
@@ -34,7 +53,7 @@ export default Vue.extend({
             ],
             backgroundImage: 'bulbs',
             currentView: 'name',
-            fonts: [
+            fontCollection: [
                 'playfair',
                 'code',
                 'satisfy',
@@ -77,11 +96,9 @@ export default Vue.extend({
                     const currentPageElementsArray = Array.prototype.slice
                         .call(currentPageElement.querySelectorAll('[data-animate]'));
 
-                    animationHandler(currentPageElementsArray, 300).then(() => {
+                    animationHandler(currentPageElementsArray, 200).then(() => {
                         // Bring in new page section.
                         this.currentView = this.views[currentViewIndex + 1];
-                        currentPageElement.classList.add('hidden');
-                        nextPageElement.classList.remove('hidden');
 
                         // Animate in the elements on the new page.
                         const nextPageElementsArray = Array.prototype.slice
@@ -95,15 +112,14 @@ export default Vue.extend({
                     console.warn('No next page element!');
                 }
             }
-
-            // $parentCache.animateCss('fadeOut', $chainElement, 'fadeInUp');
-        },
-        chooseRandomFont: function() {
-            this.selectedFont = this.fonts[Math.floor(Math.random() * this.fonts.length)];
         },
         cycleBackgrounds: function() {
-            const imageNumber = this.backgroundCollection.indexOf(this.backgroundImage);
-            this.backgroundImage = this.backgroundCollection[imageNumber + 1];
+            const nextImageIndex = findNextInArray(this.backgroundImage, this.backgroundCollection);
+            this.backgroundImage = this.backgroundCollection[nextImageIndex];
+        },
+        cycleFonts: function() {
+            const nextFontIndex = findNextInArray(this.selectedFont, this.fontCollection);
+            this.selectedFont = this.fontCollection[nextFontIndex];
         },
         incrementCounter: function() {
             this.revealCounter = this.revealCounter + 1;

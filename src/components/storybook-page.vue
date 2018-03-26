@@ -1,6 +1,6 @@
 <template>
-    <section class="page-wrapper storybook hidden" id="storybook" :class="selectedFont">
-        <div class="storybook__container" data-animate="fade-in-right">
+    <section class="page-wrapper storybook" id="storybook" :class="[selectedFont, currentView === 'storybook' ? '' : 'hidden']">
+        <div class="storybook__container" data-animate="fade-in-right" data-simplebar>
             Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
             <span class="hidden highlight" data-segment="1">Steven</span>
             Turri</em> and I am <em @click="revealText('2', $event)">a</em>
@@ -56,15 +56,17 @@
                     </p>
                 </div>
 
-                <div>
+                <div class="mt-25">
                     <em @click="revealText('17', $event)">Your Favorite movies</em>
 
                     <div class="hidden highlight" data-segment="17">
-                        Hmm... now that you ask, I think I'll have to go with my top three (in no particular order).
+                        Hmm... now that you ask, I think I'll have to go with my top five (in no particular order).
 
                         <ul>
-                            <li>Pulp Fiction</li>
+                            <li>Skyfall</li>
                             <li>The Princess Bride</li>
+                            <li>Blade Runner</li>
+                            <li>The Witch</li>
                             <li>Howl's Moving Castle</li>
                         </ul>
                     </div>
@@ -164,6 +166,7 @@ export default Vue.extend({
     },
     props: [
         'selectedFont',
+        'currentView',
     ],
 });
 </script>
@@ -208,10 +211,5 @@ export default Vue.extend({
             opacity: 1;
         }
     }
-
-    &.three::first-letter {
-        font-size: 64px;
-    }
 }
 </style>
-

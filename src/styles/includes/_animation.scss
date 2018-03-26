@@ -9,12 +9,13 @@
     0%,
     20% {
         font-size: 48px;
+        transform: scale3d(0.98, 0.98, 1);
     }
     70% {
-        font-size: 50px;
+        transform: scale3d(1.03, 1.03, 1);
     }
     100% {
-        font-size: 48px;
+        transform: scale3d(0.98, 0.98, 1);
     }
 }
 

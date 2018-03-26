@@ -4,44 +4,44 @@
 .bulbs {
     background-image: url('../images/bulbs.png');
     background-position: right top;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
-@include create-theme('bulbs', #f2c341, #f2c341, #e5e5e5);
+@include create-theme('bulbs', #f2c341, #f2c341, #333333, #000000);
 
 
 .constellation {
     background-image: url('../images/constellation.png');
 }
 
-@include create-theme('constellation', #111111, #111111, #e5e5e5);
+@include create-theme('constellation', #111111, #111111, #e5e5e5, null);
 
 
 .mars {
     background-image: url('../images/mars.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
-@include create-theme('mars', #ea1646, #ea1646, #e5e5e5);
+@include create-theme('mars', #ea1646, #ea1646, #e5e5e5, null);
 
 
 .mountains {
     background-image: url('../images/mountains.png');
     background-position: right bottom;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
-@include create-theme('mountains', #3e5565, #3e5565, #e5e5e5);
+@include create-theme('mountains', #3e5565, #3e5565, #e5e5e5, null);
 
 
 .underwater {
     background-image: url('../images/underwater.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
-@include create-theme('underwater', #1465a5, lighten(#1465a5, 5%), #e5e5e5);
+@include create-theme('underwater', #1465a5, lighten(#1465a5, 5%), #e5e5e5, null);
 
 
 .unicorn {
@@ -61,13 +61,13 @@
     }
 }
 
-@include create-theme('unicorn', #799993, darken(#799993, 15%), #e5e5e5);
+@include create-theme('unicorn', #799993, darken(#799993, 15%), #e5e5e5, null);
 
 
 .wild {
     background-image: url('../images/wild.png');
     background-position: center center;
-    color: $white-dark;
+    color: $wild-sand;
 }
 
-@include create-theme('wild', #195679, darken(#195679, 5%), #e5e5e5);
+@include create-theme('wild', #195679, darken(#195679, 5%), #e5e5e5, null);

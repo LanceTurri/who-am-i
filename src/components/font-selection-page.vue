@@ -1,5 +1,5 @@
 <template>
-    <section class="page-wrapper font-selection flex--col hidden" id="font_selection">
+    <section class="page-wrapper font-selection flex--col" id="font_selection" :class="[currentView === 'font_selection' ? '' : 'hidden']">
         <p class="font-selection__intro" data-animate="fade-in-right">Choose a font</p>
         <h2 class="font-selection__item playfair" @click="changeFont('playfair')" :data-active="[selectedFont === 'playfair' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a front end architect.</h2>
         <h2 class="font-selection__item code" @click="changeFont('code')" :data-active="[selectedFont === 'code' ? 'true' : 'false']" data-animate="fade-in-right">Hello, my name is Lance Turri and I am a front end architect.</h2>
@@ -26,6 +26,7 @@ export default Vue.extend({
     },
     props: [
         'selectedFont',
+        'currentView',
     ],
 });
 </script>
@@ -33,8 +34,16 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import '../styles/includes/_variables.scss';
 
+$font-header-box-border: 1px solid $wild-sand !default;
+
+$font-item-background: #161616 !default;
+$font-item-color: $silver !default;
+$font-item-color--active: $wild-sand !default;
+$font-item-color--hover: $wild-sand !default;
+$font-item-decorator-color: #f2c341 !default;
+
 .font-selection__intro {
-    border: 1px solid #f5f5f5;
+    border: $font-header-box-border;
     font-size: 20px;
     letter-spacing: 1px;
     line-height: 1;
@@ -44,8 +53,8 @@ export default Vue.extend({
 }
 
 .font-selection__item {
-    background-color: #161616;
-    color: #c5c5c5;
+    background-color: $font-item-background;
+    color: $font-item-color;
     cursor: pointer;
     padding: 0 20px;
     position: relative;
@@ -53,7 +62,7 @@ export default Vue.extend({
 
     &::before,
     &::after {
-        border: 5px solid #f2c341;
+        border: 5px solid $font-item-decorator-color;
         border-radius: 5px;
         content: '';
         display: block;
@@ -75,11 +84,11 @@ export default Vue.extend({
     }
 
     &:hover {
-        color: #f5f5f5;
+        color: $font-item-color--hover;
     }
 
     &[data-active='true'] {
-        color: #f5f5f5;
+        color: $font-item-color--active;
 
         &::before,
         &::after {
