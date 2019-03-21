@@ -142,7 +142,7 @@ export default Vue.extend({
         changeView() {
             this.$emit('changeview');
         },
-        revealText: function(numberString: string, event: Event, backgroundImage?: string) {
+        revealText(numberString: string, event: Event, backgroundImage?: string) {
             // Functionality to reveal next segment of text
             const elementToReveal = document.querySelector(`[data-segment="${numberString}"]`);
             (event.target as HTMLElement).classList.add('exhausted');
@@ -150,7 +150,7 @@ export default Vue.extend({
             if (elementToReveal) {
                 elementToReveal.classList.remove('hidden');
 
-                setTimeout(function() {
+                setTimeout(() => {
                     elementToReveal.classList.add('revealed');
                 }, 500);
 

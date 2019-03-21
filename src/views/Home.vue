@@ -28,15 +28,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import animationHandler from '../scripts/animation';
-import { findNextInArray } from '../scripts/helpers';
+import animationHandler from '@/helpers/animation';
+import { findNextInArray } from '@/helpers/helpers';
 
 // Child components
-import Font from '../components/font-selection-page.vue';
-import Footer from '../components/footer-section.vue';
-import Name from '../components/name-page.vue';
-import Nav from '../components/nav-section.vue';
-import Story from '../components/storybook-page.vue';
+import Font from '@/components/font-selection-page.vue';
+import Footer from '@/components/footer-section.vue';
+import Name from '@/components/name-page.vue';
+import Nav from '@/components/nav-section.vue';
+import Story from '@/components/storybook-page.vue';
 
 export default Vue.extend({
     name: 'app',
@@ -68,7 +68,7 @@ export default Vue.extend({
                 'font_selection',
                 'storybook',
             ],
-        }
+        };
     },
     beforeCreate() {
         console.log('Initializing experience, please wait...');
@@ -77,14 +77,14 @@ export default Vue.extend({
         console.log('Initialization complete. Please enjoy your stay.');
     },
     methods: {
-        changeBackground: function(backgroundImage: string) {
+        changeBackground(backgroundImage: string) {
             this.backgroundImage = backgroundImage;
         },
-        changeFont: function(font: string) {
+        changeFont(font: string) {
             this.selectedFont = font;
             this.hasSelectedFont = true;
         },
-        changeView: function(event: Event) {
+        changeView(event: Event) {
             const currentPageElement = document.getElementById(this.currentView);
 
             if (currentPageElement) {
@@ -113,15 +113,15 @@ export default Vue.extend({
                 }
             }
         },
-        cycleBackgrounds: function() {
+        cycleBackgrounds() {
             const nextImageIndex = findNextInArray(this.backgroundImage, this.backgroundCollection);
             this.backgroundImage = this.backgroundCollection[nextImageIndex];
         },
-        cycleFonts: function() {
+        cycleFonts() {
             const nextFontIndex = findNextInArray(this.selectedFont, this.fontCollection);
             this.selectedFont = this.fontCollection[nextFontIndex];
         },
-        incrementCounter: function() {
+        incrementCounter() {
             this.revealCounter = this.revealCounter + 1;
         },
     },
