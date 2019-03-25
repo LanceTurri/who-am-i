@@ -1,15 +1,20 @@
 {
-    "defaultSeverity": "error",
+    "defaultSeverity": "warning",
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {},
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**"
+        ]
+    },
     "rules": {
         "no-console": false,
-        "quotemark": ["single"],
-        "only-arrow-functions": false,
-        "object-literal-shorthand": false,
-        "no-consecutive-blank-lines": [true, 2]
-    },
-    "rulesDirectory": []
+        "quotemark": [true, "single"],
+        "indent": [true, "spaces", 2],
+        "interface-name": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "no-consecutive-blank-lines": false
+    }
 }

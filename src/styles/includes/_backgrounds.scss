@@ -2,7 +2,7 @@
 // ============================================================================
 
 .bulbs {
-    background-image: url('../images/bulbs.png');
+    background-image: url('./assets/bulbs.png');
     background-position: right top;
     color: $wild-sand;
 }
@@ -11,14 +11,14 @@
 
 
 .constellation {
-    background-image: url('../images/constellation.png');
+    background-image: url('./assets/constellation.png');
 }
 
 @include create-theme('constellation', #111111, #111111, #e5e5e5, null);
 
 
 .mars {
-    background-image: url('../images/mars.png');
+    background-image: url('./assets/mars.png');
     background-position: center center;
     color: $wild-sand;
 }
@@ -27,7 +27,7 @@
 
 
 .mountains {
-    background-image: url('../images/mountains.png');
+    background-image: url('./assets/mountains.png');
     background-position: right bottom;
     color: $wild-sand;
 }
@@ -36,7 +36,7 @@
 
 
 .underwater {
-    background-image: url('../images/underwater.png');
+    background-image: url('./assets/underwater.png');
     background-position: center center;
     color: $wild-sand;
 }
@@ -45,7 +45,7 @@
 
 
 .unicorn {
-    background-image: url('../images/unicorn.png');
+    background-image: url('./assets/unicorn.png');
     background-position: right bottom;
 
     &::before {
@@ -65,7 +65,7 @@
 
 
 .wild {
-    background-image: url('../images/wild.png');
+    background-image: url('./assets/wild.png');
     background-position: center center;
     color: $wild-sand;
 }

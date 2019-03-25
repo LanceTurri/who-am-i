@@ -1,6 +1,6 @@
 <template>
-    <section class="page-wrapper storybook" id="storybook" :class="[selectedFont, currentView === 'storybook' ? '' : 'hidden']">
-        <div class="storybook__container" data-animate="fade-in-right" data-simplebar>
+    <section class="page-wrapper storybook" id="storybook" :class="[currentFont, currentView === 'storybook' ? '' : 'hidden']">
+        <div ref="simplebar" class="storybook__container" data-animate="fade-in-right">
             Hello, my name is <em class="underline" @click="revealText('1', $event)">Lance
             <span class="hidden highlight" data-segment="1">Steven</span>
             Turri</em> and I am <em @click="revealText('2', $event)">a</em>
@@ -9,12 +9,12 @@
     
             <span class="hidden highlight" data-segment="3">Some of my interests include
                 <em @click="revealText('4', $event)">reading</em>
-                <span class="hidden highlight" data-segment="4"> (especially futuristic fiction about space)</span>, watching rugby, and writing <em @click="revealText('5', $event)">scalable css</em>.
+                <span class="hidden highlight" data-segment="4">(especially futuristic fiction about space)</span>, watching rugby, and writing <em @click="revealText('5', $event)">scalable css</em>.
     
                 <p class="hidden highlight" data-segment="5">
                     My greatest satisfaction comes at having a design in front of me and finding the best, most efficient way of making it come to
                     <em @click="revealText('6', $event)">life</em>
-                    <span class="hidden highlight" data-segment="6"> because at heart I am a
+                    <span class="hidden highlight" data-segment="6">because at heart I am a
                         <em @click="revealText('7', $event)">problem</em> solver.
                         <span class="hidden highlight" data-segment="7">Front end development is like a constant puzzle that changes daily and I enjoy solving it. Whether it's a new way of doing something, or just micro-optimizing a current process, it is certainly my <em @click="revealText('8', $event)">passion</em>.</span>
                     </span>
@@ -26,7 +26,7 @@
 
             <div class="hidden highlight" data-segment="10">
                 <em @click="revealText('9', $event)">Philosophy on CSS</em>
-                <div class="hidden highlight" data-segment="9">My HTML and CSS writing philosophy (if you can call it that) is very simple, write as 
+                <div class="hidden highlight mb-25" data-segment="9">My HTML and CSS writing philosophy (if you can call it that) is very simple, write as 
                     <em @click="revealText('11', $event)">little as possible</em>.
                     
                     <span class="hidden highlight" data-segment="11">
@@ -41,7 +41,7 @@
                     <span class="hidden highlight" data-segment="13">
                         For instance, writing CSS when you are the only front end developer is quite different than having a team of 
                         <em @click="revealText('14', $event)">font loving</em>
-                        <span class="hidden highlight" data-segment="14">(My favorite is Avenir)</span>, <em @click="revealText('29', $event)">pixel perfect</em> counterparts.
+                        <span class="hidden highlight" data-segment="14">(My favorite is Avenir)</span>,<em @click="revealText('29', $event)">pixel perfect</em> counterparts.
                     </span>
 
                     <p class="hidden highlight" data-segment="29">
@@ -51,7 +51,7 @@
                         <span class="hidden highlight" data-segment="15">
                             Someone reading what I've worked on should never have to ask me how it works, or why I 
                             <em @click="revealText('16', $event)">did it that way</em>
-                            <span class="hidden highlight" data-segment="16"> (that's what comments are for!)</span>.
+                            <span class="hidden highlight" data-segment="16">(that's what comments are for!)</span>.
                         </span>
                     </p>
                 </div>
@@ -63,7 +63,7 @@
                         Hmm... now that you ask, I think I'll have to go with my top five (in no particular order).
 
                         <ul>
-                            <li>Skyfall</li>
+                            <li>2001: A Space Odyssey</li>
                             <li>The Princess Bride</li>
                             <li>Blade Runner</li>
                             <li>The Witch</li>
@@ -76,10 +76,10 @@
                     <em @click="revealText('18', $event)">Books currently reading</em>
 
                     <div class="hidden highlight" data-segment="18">
-                        I am certainly more of a Sci-Fi and Fantasy fan but there are a few in here that would appeal to other genres.
+                        I am certainly more of a Sci-Fi and Fantasy fan, but occasionally drift into other genres.
 
                         <ul>
-                            <li>The Expanse (On book 5 of 9)</li>
+                            <li>The Expanse (On book 8)</li>
                             <li>Mistborn</li>
                             <li>Millennium trilogy (The girl with the dragon tattoo)</li>
                             <li>Moon is a harsh mistress</li>
@@ -91,7 +91,7 @@
                 <em @click="revealText('19', $event)">Your most complex problem</em>
 
                 <div class="hidden highlight" data-segment="19">
-                    This is going to sound like a bit of a copout, but the most complex problem I've faced is writing 
+                    This is going to sound like a bit of a copout, but the most complex problem I've faced is writing
                     <em @click="revealText('20', $event)">scalable CSS</em>. 
                     <span class="hidden highlight" data-segment="20">
                         My definition of this is creating a structure that is both welcoming for developers and able to scale 
@@ -114,7 +114,7 @@
                         <em @click="revealText('24', $event)">three in the morning</em>
                         <span class="hidden highlight" data-segment="24">
                             (back when cartoon network went to static after Space Ghost)
-                        </span>, building everything I possibly could. When I would do this, I never thought I need a spaceship, I would say I need a 2 x 4 that is red to 
+                        </span>, building everything I possibly could. When I would do this, I never thought I need a spaceship, I would say I need a 2 x 4 that is red to
                         <em @click="revealText('25', $event)">build this section</em>. 
                         <span class="hidden highlight" data-segment="25">
                             That's what scalable CSS should be: reusable, dynamic, agnostic blocks that can be combined to build 
@@ -136,38 +136,78 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import SimpleBar from 'simplebar';
+import 'simplebar/dist/simplebar.min.css';
+
 export default Vue.extend({
-    name: 'storybook-page',
+    name: 'storybook',
+    data: () => {
+        return {
+            simplebar: null,
+            simplebarScrollElement: null,
+        };
+    },
+    props: [
+        'currentView',
+    ],
+    computed: {
+        currentFont(): string {
+            return this.$store.state.currentFont;
+        },
+    },
     methods: {
         changeView() {
             this.$emit('changeview');
         },
-        revealText: function(numberString: string, event: Event, backgroundImage?: string) {
+        ensureInView(container: HTMLElement, element: HTMLElement) {
+            // Determine container top and bottom
+            const cTop = container.scrollTop;
+            const cBottom = cTop + container.clientHeight;
+
+            // Determine element top and bottom
+            const eTop = element.offsetTop;
+            const eBottom = eTop + element.clientHeight;
+
+            // Check if out of view
+            if (eTop < cTop) {
+                container.scrollTop -= (cTop - eTop);
+            } else if (eBottom > cBottom) {
+                container.scrollTop += (eBottom - cBottom);
+            }
+        },
+        revealText(numberString: string, event: Event, currentBackground?: string) {
             // Functionality to reveal next segment of text
             const elementToReveal = document.querySelector(`[data-segment="${numberString}"]`);
             (event.target as HTMLElement).classList.add('exhausted');
 
-            if (elementToReveal) {
+            if (elementToReveal && elementToReveal.classList.contains('hidden')) {
                 elementToReveal.classList.remove('hidden');
+                (this.simplebar as any).recalculate();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     elementToReveal.classList.add('revealed');
-                }, 500);
 
-                this.$emit('incrementcounter');
+                    // TODO: Find a better way of doing this. Right now when a section is revealed,
+                    // we just want to scroll to the bottom of the div so that it is visible.
+                    this.ensureInView(this.simplebarScrollElement as any, elementToReveal as HTMLElement);
+                }, 400);
 
-                if (backgroundImage) {
-                    this.$emit('changebackground', backgroundImage);
+                this.$store.commit('incrementCounter');
+
+                if (currentBackground) {
+                    this.$store.commit('changeBackground', currentBackground);
                 }
             } else {
                 console.warn('no element to reveal');
             }
         },
     },
-    props: [
-        'selectedFont',
-        'currentView',
-    ],
+    mounted() {
+        this.$nextTick(() => {
+            this.simplebar = new SimpleBar(this.$refs.simplebar);
+            this.simplebarScrollElement = (this.simplebar as any).getContentElement();
+        });
+    },
 });
 </script>
 
@@ -178,15 +218,15 @@ export default Vue.extend({
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0 auto;
     max-width: 675px;
+    overflow: hidden;
     text-align: justify;
-    width: 80%;
+    width: 90%;
 
     .storybook__container {
         max-height: 100%;
-        overflow: auto;
     }
 
     em {
@@ -200,6 +240,11 @@ export default Vue.extend({
         cursor: default;
         font-style: italic;
         text-decoration: none;
+    }
+
+    em + span,
+    span + em {
+        padding-left: 8px;
     }
 
     .highlight {

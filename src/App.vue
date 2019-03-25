@@ -1,3 +1,15 @@
+<template>
+    <div id="app" class="app">
+        <!-- <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/about">About</router-link>
+        </div> -->
+
+        <router-view/>
+    </div>
+</template>
+
+<style lang="scss">
 // Global styling
 // =============================================================================
 * {
@@ -15,12 +27,17 @@ body {
 }
 
 body {
-    display: flex;
     font-family: 'Amatic SC', sans-serif;
     font-size: 24px;
-    line-height: 150%;
     margin: 0;
-    text-align: center;
+}
+
+.app {
+    display: flex;
+    height: 100%;
+    line-height: 150%;
+    justify-content: center;
+    width: 100%;
 }
 
 .main-wrapper {
@@ -41,10 +58,12 @@ body {
 .button--ghost {
     background-color: transparent;
     border: 0;
+    color: #cccccc;
     cursor: pointer;
-    font-size: 44px;
+    font-size: 28px;
     margin-top: 10px;
     padding: 10px 15px;
+    text-decoration: underline;
     text-transform: uppercase;
     width: 100px;
 
@@ -52,7 +71,11 @@ body {
         color: #cccccc;
     }
 
+    &:hover,
     &:hover::before {
         color: darken(#f5f5f5, 10%);
     }
 }
+
+@import './styles/main.scss';
+</style>

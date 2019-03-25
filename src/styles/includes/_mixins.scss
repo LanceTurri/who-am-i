@@ -8,6 +8,10 @@ $text-color-hover: lighten($text-color-default, 90%) !default;
         .trophy-case__item {
             color: #ffffff;
 
+            svg {
+                fill: #ffffff;
+            }
+
             &--polished {
                 background: $background-color-default;
                 color: $text-color-default;
@@ -16,12 +20,29 @@ $text-color-hover: lighten($text-color-default, 90%) !default;
                     background: $background-color-hover;
                     color: $text-color-hover;
                 }
+
+                svg {
+                    fill: $text-color-default;
+
+                    &:hover {
+                        fill: $text-color-hover;
+                    }
+                }
             }
         }
 
         .highlight {
             background: lighten($background-color-default, 5%);
             opacity: 0.9;
+        }
+
+        .font-selection {
+            .font-selection__item {
+                &::before,
+                &::after {
+                    border-color: lighten($background-color-default, 5%) !important;
+                }
+            }
         }
     }
 }

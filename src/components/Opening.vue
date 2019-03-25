@@ -6,10 +6,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import animationHandler from '../scripts/animation';
+import animationHandler from '@/helpers/animation';
 
 export default Vue.extend({
-    name: 'name-page',
+    name: 'opening',
     methods: {
         changeView() {
             this.$emit('changeview');
@@ -18,7 +18,7 @@ export default Vue.extend({
     mounted() {
         // Initiate the animation.
         // TODO: Instead of an arbitrary setTimeout delay, poll for the element to exist.
-        setTimeout(function() {
+        setTimeout(() => {
             const animationElementsArray = Array.prototype.slice
                 .call(document.querySelectorAll('#name [data-animate]'));
 
@@ -26,7 +26,7 @@ export default Vue.extend({
         }, 1000);
     },
     props: [
-        'currentView'
-    ]
+        'currentView',
+    ],
 });
 </script>
