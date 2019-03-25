@@ -8,7 +8,7 @@ const fadeElements = (animationElementsArray: HTMLElement[], delayTime: number, 
         const elementToAnimate = animationElementsArray.shift() as HTMLElement;
 
         if (elementToAnimate.classList.contains('fade-in')) {
-            console.log('fading out!');
+            // console.log('fading out!');
             elementToAnimate.classList.add('fade-out');
 
             // HACK: We need to wait for the animation to complete before 'resetting' the
@@ -17,11 +17,11 @@ const fadeElements = (animationElementsArray: HTMLElement[], delayTime: number, 
                 clearAnimationClasses(elementToAnimate);
             }, 500);
         } else {
-            console.log('fading in!');
+            // console.log('fading in!');
             elementToAnimate.classList.add('fade-in');
         }
 
-        if (elementToAnimate.dataset.animateAfter && elementToAnimate.dataset.animateAfter) {
+        if (elementToAnimate.dataset.animateAfter) {
             setTimeout(() => {
                 elementToAnimate.classList.add(elementToAnimate.dataset.animateAfter as string);
             }, 500);

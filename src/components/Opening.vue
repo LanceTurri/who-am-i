@@ -9,7 +9,7 @@ import Vue from 'vue';
 import animationHandler from '@/helpers/animation';
 
 export default Vue.extend({
-    name: 'name-page',
+    name: 'opening',
     methods: {
         changeView() {
             this.$emit('changeview');
